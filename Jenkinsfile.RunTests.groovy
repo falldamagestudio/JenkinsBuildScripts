@@ -6,6 +6,7 @@ pipeline {
 	stages {
 		stage('Run Tests') {
 			steps {
+				sh 'ls -l'
 				sh './gradle test'
 				//script {
 				//	try {

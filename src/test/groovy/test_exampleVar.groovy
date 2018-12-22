@@ -15,7 +15,7 @@ class exampleVarTest extends BasePipelineTest {
     @Test
     void testCall() {
         // call ExampleVar and check result
-        //def result = ExampleVar(text: "a_B-c.1")
-        //assertEquals "result:", "abc1", result
+        def result = ExampleVar(text: "a_B-c.1")
+        assertEquals "result:", "abc1", result
     }
 }

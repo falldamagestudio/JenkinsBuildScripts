@@ -8,9 +8,7 @@ pipeline {
 			steps {
 				sh 'chmod u+x gradlew'
 				sh './gradlew test -DignoreFailures=true'
-				sh 'ls -l build/test-results'
-				sh 'ls -l build/test-results/test'
-				junit testResults: './build/test-results/TEST-*.xml'
+				junit './build/test-results/*.xml'
 				//script {
 				//	try {
 				//		if (isWindows()) {

@@ -7,7 +7,7 @@ pipeline {
 		stage('Run Tests') {
 			steps {
 				sh 'chmod u+x gradlew'
-				sh './gradlew test -DignoreFailures=true --no-daemon'
+				sh './gradlew test -DignoreFailures=true'
 				junit './build/test-results/test/*.xml'
 				//script {
 				//	try {

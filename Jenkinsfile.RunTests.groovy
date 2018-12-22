@@ -6,8 +6,7 @@ pipeline {
 	stages {
 		stage('Run Tests') {
 			steps {
-				sh 'ls -l'
-				sh './gradle test'
+				sh './gradlew test'
 				//script {
 				//	try {
 				//		if (isWindows()) {

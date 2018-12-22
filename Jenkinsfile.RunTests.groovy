@@ -9,6 +9,10 @@ pipeline {
 				sh 'chmod u+x gradlew'
 				sh './gradlew test -DignoreFailures=true'
 				junit '**/build/test-results/test/*.xml'
+				if (currentBuild.result == 'UNSTABLE') {
+					echo "UNSTABLE!"
+					currentBuild.result = 'FAILED'
+				}
 				//script {
 				//	try {
 				//		if (isWindows()) {

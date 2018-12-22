@@ -9,13 +9,13 @@ class exampleVarTest extends BasePipelineTest {
     void setUp() {
         super.setUp()
         // load exampleVar
-        exampleVar = loadScript("vars/exampleVar.groovy")
+        exampleVar = loadScript("vars/ExampleVar.groovy")
     }
 
     @Test
     void testCall() {
-        // call exampleVar and check result
-        //def result = exampleVar(text: "a_B-c.1")
+        // call ExampleVar and check result
+        //def result = ExampleVar(text: "a_B-c.1")
         //assertEquals "result:", "abc1", result
     }
 }

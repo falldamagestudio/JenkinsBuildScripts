@@ -21,4 +21,7 @@ test {
 
     // show stdout from tests
     onOutput { dest, event -> print event.message }
+
+    // Use -DignoreFailures=true on the command line to ignore test failures
+    ignoreFailures = Boolean.getBoolean("ignoreFailures")
 }

@@ -5,7 +5,7 @@ pipeline {
 
 	stages {
 		stage('Run Tests') {
-			step {
+			steps {
 				script {
 					try {
 						if (isWindows()) {

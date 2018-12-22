@@ -11,7 +11,7 @@ pipeline {
 						if (isWindows()) {
 							bat 'gradlew test'
 						} else {
-							sh 'gradle test'
+							sh './gradle test'
 						}
 					}
 					catch (err) {

@@ -1,0 +1,24 @@
+plugins {
+    id "groovy"
+}
+
+group = "com.falldamagestudio"
+version = "1.0"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.codehaus.groovy:groovy-all:2.5.0"
+    testCompile "com.lesfurets:jenkins-pipeline-unit:1.1"
+    testCompile "junit:junit:4.12"
+}
+
+test {
+    // delete old test reports
+    dependsOn cleanTest
+
+    // show stdout from tests
+    onOutput { dest, event -> print event.message }
+}

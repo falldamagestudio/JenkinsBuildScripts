@@ -7,7 +7,7 @@ pipeline {
 		stage('Run Tests') {
 			steps {
 				sh 'chmod u+x gradlew'
-				sh './gradlew test'
+				sh './gradlew test --continue'
 				junit testResults: '**/build/test-reports/*.xml'
 				//script {
 				//	try {

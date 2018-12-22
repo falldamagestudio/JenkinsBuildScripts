@@ -8,6 +8,7 @@ pipeline {
 			steps {
 				sh 'chmod u+x gradlew'
 				sh './gradlew test'
+				junit testResults: '**/build/test-reports/*.xml'
 				//script {
 				//	try {
 				//		if (isWindows()) {

@@ -12,6 +12,21 @@ repositories {
     }
 }
 
+sourceSets {
+    main {
+        groovy {
+            srcDir 'src'
+            srcDir 'vars'
+        }
+    }
+    test {
+        groovy {
+            srcDir 'test'
+        }
+    }
+}
+
+
 dependencies {
     // Add support for a specific Groovy language version
     implementation 'org.codehaus.groovy:groovy-all:2.5.0'

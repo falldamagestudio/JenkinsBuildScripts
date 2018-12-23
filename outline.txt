@@ -29,18 +29,20 @@ committerToSlackTranslation()
 	-> returns dictionary[committer : slack notification string]
 
 ============================================================
+
+vars:
 	
 createSlackMessage_success_gDrive(google drive location)
-	-> returns a complete Slack message
+	-> returns [slack message, people to notify]
 createSlackMessage_success_steam(steam branch name)
-	-> returns a complete Slack message
+	-> returns [slack message, people to notify]
 createSlackMessage_failure(stage)
-	-> returns a complete Slack message
+	-> returns [slack message, people to notify]
 
 ============================================================
+
+vars:
 	
-sendSlackMessage_success_gDrive(channel, google drive location)
-sendSlackMessage_success_steam(channel, steam branch name)
-sendSlackMessage_failure(channel, stage)
+sendSlackMessage(channel, message, people to notify)
 
 ============================================================

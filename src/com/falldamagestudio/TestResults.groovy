@@ -9,7 +9,7 @@ class FailedTest {
 
 def getFailedTests() {
 
-    echo "currentBuild.rawBuild type: ${currentBuild.rawBuild.getClass().getName()}"
+    echo "testResultAction type: ${currentBuild.rawBuild.getAction(AbstractTestResultAction.class).getClass().getName()}"
 
     AbstractTestResultAction testResultAction = currentBuild.rawBuild.getAction(AbstractTestResultAction.class)
     if (testResultAction != null) {

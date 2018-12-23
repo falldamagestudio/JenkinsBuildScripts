@@ -3,19 +3,19 @@ import com.lesfurets.jenkins.unit.*
 import static groovy.test.GroovyAssert.*
 
 class exampleVarTest extends BasePipelineTest {
-    def exampleVar
+    def getFailedTests
 
     @Before
     void setUp() {
         super.setUp()
-        // load exampleVar
-        exampleVar = loadScript("vars/ExampleVar.groovy")
+        // load getFailedTests
+        getFailedTests = loadScript("vars/getFailedTests.groovy")
     }
 
     @Test
     void testCall() {
-        // call ExampleVar and check result
-        def result = ExampleVar(text: "a_B-c.1")
+        // call getFailedTests and check result
+        def result = getFailedTests()
         assertEquals "result:", "abc1", result
     }
 }

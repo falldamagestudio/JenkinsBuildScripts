@@ -7,11 +7,29 @@ version = "1.0"
 
 repositories {
     mavenCentral()
+    maven {
+        url 'http://repo.jenkins-ci.org/releases/'
+    }
 }
 
 dependencies {
-    compile "org.codehaus.groovy:groovy-all:2.5.0"
+    // Add support for a specific Groovy language version
+    implementation 'org.codehaus.groovy:groovy-all:2.5.0'
+
+    // Import https://github.com/jenkinsci/junit-plugin
+    // which contains hudson.tasks.junit.* & hudson.tasks.test.*
+    implementation "org.jenkins-ci.plugins:junit:1.26.1@jar"
+
+    // Import https://github.com/jenkinsci/jenkins/core
+    // which contains hudson.model.*
+    implementation "org.jenkins-ci.main:jenkins-core:2.130@jar"
+
+    // Import https://github.com/jenkinsci/JenkinsPipelineUnit
+    // which contains com.lesfurets.jenkins.unit.*
     testCompile "com.lesfurets:jenkins-pipeline-unit:1.1"
+
+    // Import https://github.com/junit-team/junit4
+    // which contains org.junit.*
     testCompile "junit:junit:4.12"
 }
 

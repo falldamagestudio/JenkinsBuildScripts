@@ -1,4 +1,4 @@
-import com.falldamagestudio.*
+import com.falldamagestudio.TestResults
 
 def call() {
     echo "getting failed tests"

@@ -15,7 +15,12 @@ def getFailedTests() {
     if (testResultAction != null) {
         def failedTests0 = testResultAction.failedTests
         if (failedTests0 != null)
+        {
+            for (CaseResult failedTest : failedTests0) {
+                echo "failedTest type: ${failedTest}"
+            }
             return toFailedTests(failedTests0)
+        }
         else
             return null
     }

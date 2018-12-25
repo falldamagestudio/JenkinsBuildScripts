@@ -39,6 +39,45 @@ dependencies {
     // which contains hudson.model.*
     implementation "org.jenkins-ci.main:jenkins-core:2.130@jar"
 
+    // Import https://github.com/jenkinsci/workflow-support-plugin/
+    // which contains org.jenkinsci.plugins.workflow.support.steps.build.*
+    implementation "org.jenkins-ci.plugins.workflow:workflow-support:2.24@jar"
+
+    // Import 
+    //implementation "net.sf.json-lib:json-lib:2.4:jdk15"
+
+    // Import commons-discovery 0.2;
+    // commons-jelly has a dependency on commons-discovery 20030211.213356
+    // yet that package has embedded version 0.2-dev
+    // so instead we go 
+    implementation "commons-discovery:commons-discovery:0.2"
+
+    implementation "jdom:jdom:1.0"
+
+    // Import https://github.com/apache/commons-jelly
+    // which contains org.apache.commons.jelly.XMLOutput
+    implementation("commons-jelly:commons-jelly:1.0") {
+        exclude group:"commons-discovery", module:"commons-discovery" // Exclude commons-discovery:commons-discovery:20030211.213356
+        exclude group:"jdom", module:"jdom" // Exclude jdom:jdom:b10
+    }
+
+    implementation "org.kohsuke.stapler:stapler:1.256"
+
+    implementation "com.thoughtworks.xstream:xstream:1.4.11"
+
+    // Import https://github.com/jenkinsci/workflow-job/
+    // which contains org.jenkinsci.plugins.workflow.job.*
+    //implementation "org.jenkins-ci.plugins.workflow:workflow-job:2.16@jar"
+
+    // Import https://github.com/jenkinsci/workflow-plugin/
+    // which contains org.jenkinsci.plugins.workflow.flow.*
+    //implementation "org.jenkins-ci.plugins.workflow:workflow-api:2.16@jar"
+
+    //implementation "org.jenkins-ci.plugins.workflow:workflow-cps:2.16@jar"
+
+    //implementation "org.jenkins-ci.plugins.workflow:workflow-step-api:2.16@jar"
+
+
     // Import https://github.com/jenkinsci/JenkinsPipelineUnit
     // which contains com.lesfurets.jenkins.unit.*
     testCompile "com.lesfurets:jenkins-pipeline-unit:1.1"

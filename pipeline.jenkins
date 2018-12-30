@@ -1,0 +1,5 @@
+
+@Library("JenkinsBuildScripts@master") _
+
+echo "pipeline.jenkins starts"
+getFailedTestsx()

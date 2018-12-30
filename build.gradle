@@ -15,13 +15,12 @@ repositories {
 sourceSets {
     main {
         groovy {
-            srcDir 'src'
-            srcDir 'vars'
+            srcDir 'gradle'
         }
     }
     test {
         groovy {
-            srcDir 'test'
+            srcDirs = [ 'test' ]
         }
     }
 }

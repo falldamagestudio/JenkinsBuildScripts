@@ -1,9 +1,6 @@
-//import com.falldamagestudio.TestResults
-
-// TODO: handle context with 'this' passed around & returned
 
 def call() {
-    echo "getFailedTestsx() starts"
+    echo "getFailedTests (var) () starts"
     echo "currentBuild: ${currentBuild}"
     echo "getting failed tests"
     echo "this: ${this}"

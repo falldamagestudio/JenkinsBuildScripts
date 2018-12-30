@@ -6,7 +6,8 @@ def call() {
     echo "getFailedTestsx() starts"
     echo "currentBuild: ${currentBuild}"
     echo "getting failed tests"
-    def testResults = new com.falldamagestudio.TestResults()
+    echo "this: ${this}"
+    def testResults = new com.falldamagestudio.TestResults(this)
     echo "Created test object"
     echo "test results: ${testResults}"
     def failedTests = testResults.getFailedTests()

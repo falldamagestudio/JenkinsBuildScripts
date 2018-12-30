@@ -15,7 +15,7 @@ repositories {
 sourceSets {
     main {
         groovy {
-            srcDir 'gradle'
+            srcDir 'src2'
         }
     }
     test {

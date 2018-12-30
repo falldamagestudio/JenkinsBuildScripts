@@ -7,35 +7,42 @@ import hudson.tasks.junit.CaseResult
 //     String name
 // }
 
-def getFailedTests() {
+class TestResults implements Serializable {
 
-    echo "getFailedTests() starts"
-    echo "currentBuild: ${currentBuild}"
+    def script
 
-    echo "testResultAction type: ${currentBuild.rawBuild.getAction(AbstractTestResultAction.class).getClass().getName()}"
-
-    AbstractTestResultAction testResultAction = currentBuild.rawBuild.getAction(AbstractTestResultAction.class)
-    if (testResultAction != null) {
-        def failedTests0 = testResultAction.failedTests
-        return failedTests0
-        // if (failedTests0 != null)
-        //     return toFailedTests(failedTests0)
-        // else
-        //     return null
+    TestResults(script) {
+        this.script = script
     }
-    else
-        return null
+
+    def getFailedTests() {
+
+        script.echo "getFailedTests() starts"
+        script.echo "currentBuild: ${script.currentBuild}"
+
+        script.echo "testResultAction type: ${script.currentBuild.rawBuild.getAction(AbstractTestResultAction.class).getClass().getName()}"
+
+        AbstractTestResultAction testResultAction = script.currentBuild.rawBuild.getAction(AbstractTestResultAction.class)
+        if (testResultAction != null) {
+            def failedTests0 = testResultAction.failedTests
+            return failedTests0
+            // if (failedTests0 != null)
+            //     return toFailedTests(failedTests0)
+            // else
+            //     return null
+        }
+        else
+            return null
+    }
+
+    // def toFailedTests(List<CaseResult> failedTests0) {
+    //     def failedTests = new ArrayList<FailedTest>()
+
+    //     for (CaseResult failedTest0 : failedTests0) {
+    //         def failedTest = new FailedTest()
+    //         failedTest.name = failedTest0.getDisplayName()
+    //         failedTests.add(failedTest)
+    //     }
+    //     return failedTests
+    // }
 }
-
-// def toFailedTests(List<CaseResult> failedTests0) {
-//     def failedTests = new ArrayList<FailedTest>()
-
-//     for (CaseResult failedTest0 : failedTests0) {
-//         def failedTest = new FailedTest()
-//         failedTest.name = failedTest0.getDisplayName()
-//         failedTests.add(failedTest)
-//     }
-//     return failedTests
-// }
-
-return this

@@ -19,6 +19,7 @@ class TestResults implements Serializable {
 
         script.echo "getFailedTests() starts"
         script.echo "currentBuild: ${script.currentBuild}"
+        script.echo "rawBuild: ${script.currentBuild.rawBuild}"
 
         script.echo "testResultAction type: ${script.currentBuild.rawBuild.getAction(AbstractTestResultAction.class).getClass().getName()}"
 

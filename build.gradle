@@ -19,8 +19,11 @@ sourceSets {
         }
     }
     test {
+        java {
+            srcDirs = [ 'test/java' ]
+        }
         groovy {
-            srcDirs = [ 'test' ]
+            srcDirs = [ 'test/groovy' ]
         }
     }
 }
@@ -37,6 +40,51 @@ dependencies {
     // Import https://github.com/jenkinsci/jenkins/core
     // which contains hudson.model.*
     implementation "org.jenkins-ci.main:jenkins-core:2.130@jar"
+
+    /////////////////////////////////////////////////////////////////////////
+
+    // Import https://github.com/jenkinsci/workflow-support-plugin/
+    // which contains org.jenkinsci.plugins.workflow.support.steps.build.*
+    testCompile "org.jenkins-ci.plugins.workflow:workflow-support:2.24@jar"
+
+    // Import https://github.com/stapler/stapler/core
+    // which contains org.kohsuke.stapler.*
+    testCompile "org.kohsuke.stapler:stapler:1.256"
+
+    testCompile 'javax.servlet:javax.servlet-api:3.1.0'
+
+    // Import https://github.com/kohsuke/args4j
+    // which contains org.kohsuke.args4j.CmdLineException
+    testCompile "args4j:args4j:2.33"
+
+    // Import https://github.com/jenkinsci/xstream-fork
+    // which contains a jenkins-modified version of com.thoughtworks.xstream.XStream
+    testCompile "org.jvnet.hudson:xstream:1.4.7-jenkins-1"
+
+    // Import https://github.com/jenkinsci/remoting
+    // which contains hudson.remoting.Callable
+    implementation "org.jenkins-ci.main:remoting:3.28@jar"
+
+    // Import the precursor of Spring Security
+    // which contains org.acegisecurity.AccessDeniedException
+    implementation "org.acegisecurity:acegi-security:1.0.7"
+
+    // Import https://github.com/apache/commons-jelly
+    // which contains org.apache.commons.jelly.XMLOutput
+    implementation("commons-jelly:commons-jelly:1.0") {
+        exclude group:"commons-discovery", module:"commons-discovery" // Exclude commons-discovery:commons-discovery:20030211.213356
+        exclude group:"jdom", module:"jdom" // Exclude jdom:jdom:b10
+    }
+
+    // Import https://github.com/jenkinsci/icon-shim-plugin
+    // which contains org.jenkins.ui.icon.Icon
+    implementation "org.jenkins-ci.plugins.icon-shim:icon-shim:2.0.3"
+
+    // Import https://github.com/jenkinsci/lib-task-reactor
+    // which contains org.jvnet.hudson.reactor.Milestone
+    implementation "org.jenkins-ci:task-reactor:1.5"
+
+    /////////////////////////////////////////////////////////////////////////
 
     // Import https://github.com/jenkinsci/JenkinsPipelineUnit
     // which contains com.lesfurets.jenkins.unit.*

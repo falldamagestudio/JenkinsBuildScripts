@@ -1,5 +1,6 @@
 import com.lesfurets.jenkins.unit.*
 import com.lesfurets.jenkins.unit.cps.BasePipelineTestCPS
+import hudson.tasks.test.AbstractTestResultAction
 import org.junit.*
 import org.junit.rules.TemporaryFolder
 
@@ -10,9 +11,6 @@ import static org.mockito.Mockito.*
 
 
 class exampleVarTest extends BasePipelineTest {
-
-    //class MockJob extends hudson.model.Job<MockJob, MockRun> {}
-    //class MockRun extends hudson.model.Run<MockJob, MockRun> {}
 
     @ClassRule
     public static TemporaryFolder folder = new TemporaryFolder()
@@ -44,13 +42,14 @@ class exampleVarTest extends BasePipelineTest {
         super.setUp()
         helper.registerAllowedMethod("echo", [String.class], { String s -> println s})
 
-        def testResults = []
+        def testResults = null
 
-        def rawBuild = mock(org.jenkinsci.plugins.workflow.job.WorkflowRun.class)
-        when(rawBuild.getAction(hudson.tasks.test.AbstractTestResultAction.class)).thenReturn(testResults)
+        def rawBuild = mock(MockRun.class)
+        when(rawBuild.getAction(AbstractTestResultAction.class)).thenReturn(testResults)
 
-        def currentBuild = mock(org.jenkinsci.plugins.workflow.support.steps.build.RunWrapper.class)
-        currentBuild.rawBuild = rawBuild
+        def currentBuild = mock(MockRunWrapper.class)
+        when(currentBuild.getRawBuild()).thenReturn(rawBuild)
+        //currentBuild.rawBuild = rawBuild
         currentBuild.result = 'SUCCESS'
 
         binding.setVariable('currentBuild', currentBuild)

@@ -6,8 +6,13 @@ import org.junit.rules.TemporaryFolder
 import static groovy.test.GroovyAssert.*
 import static com.lesfurets.jenkins.unit.global.lib.LibraryConfiguration.library
 import static com.lesfurets.jenkins.unit.global.lib.LocalSource.localSource
+import static org.mockito.Mockito.*
+
 
 class exampleVarTest extends BasePipelineTest {
+
+    //class MockJob extends hudson.model.Job<MockJob, MockRun> {}
+    //class MockRun extends hudson.model.Run<MockJob, MockRun> {}
 
     @ClassRule
     public static TemporaryFolder folder = new TemporaryFolder()
@@ -38,7 +43,17 @@ class exampleVarTest extends BasePipelineTest {
 
         super.setUp()
         helper.registerAllowedMethod("echo", [String.class], { String s -> println s})
-        binding.setVariable('currentBuild', "build1234")
+
+        def testResults = []
+
+        def rawBuild = mock(org.jenkinsci.plugins.workflow.job.WorkflowRun.class)
+        when(rawBuild.getAction(hudson.tasks.test.AbstractTestResultAction.class)).thenReturn(testResults)
+
+        def currentBuild = mock(org.jenkinsci.plugins.workflow.support.steps.build.RunWrapper.class)
+        currentBuild.rawBuild = rawBuild
+        currentBuild.result = 'SUCCESS'
+
+        binding.setVariable('currentBuild', currentBuild)
     }
 
     @Test

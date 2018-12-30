@@ -45,6 +45,10 @@ dependencies {
     // Import https://github.com/junit-team/junit4
     // which contains org.junit.*
     testCompile "junit:junit:4.12"
+
+    // Import https://github.com/mockito/mockito
+    // which contains org.mockito.Mockito.*
+    testCompile "org.mockito:mockito-core:2.+"
 }
 
 test {

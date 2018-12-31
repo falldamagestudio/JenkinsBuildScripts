@@ -100,6 +100,16 @@ dependencies {
 
     /////////////////////////////////////////////////////////////////////////
 
+    // Stuff needed for hudson.tasks.junit.TestResultAction
+
+    // Import https://github.com/jfree/jfreechart
+    // which contains org.jfree.chart.axis.CategoryAxis
+    testImplementation "org.jfree:jfreechart:1.5.0"
+
+    /////////////////////////////////////////////////////////////////////////
+
+    // Import test frameworks
+
     // Import https://github.com/jenkinsci/JenkinsPipelineUnit
     // which contains com.lesfurets.jenkins.unit.*
     testImplementation "com.lesfurets:jenkins-pipeline-unit:1.1"

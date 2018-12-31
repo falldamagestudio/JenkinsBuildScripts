@@ -1,0 +1,4 @@
+
+@Library("JenkinsBuildScripts@master") _
+
+changeLogs = new com.falldamagestudio.SCMInfo(this).getChangeLogs()

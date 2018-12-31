@@ -1,0 +1,6 @@
+<testsuite tests="2">
+    <testcase classname="foo1" name="ASuccessfulTest" time="0.01"/>
+	<system-out><![CDATA[stdout from running foo1]]></system-out>
+    <testcase classname="foo2" name="AnotherSuccessfulTest" time="0.02"/>
+	<system-out><![CDATA[stdout from running foo2]]></system-out>
+</testsuite>

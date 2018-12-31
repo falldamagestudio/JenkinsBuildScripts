@@ -76,4 +76,16 @@ class getFailedTestsTest extends BasePipelineTest {
         printCallStack()
         assertTrue(true)
     }
+
+    @Test
+    void getFailedTestsReturnsEmptyListWhenSuccessful() {
+
+        registerCurrentBuildWithTestResults("test/resources/junit-example-results/two-successful.xml")
+        binding.setVariable('failedTests', '')
+        runScript('test/jenkins/getFailedTests.jenkins')
+        def failedTests = binding.getVariable('failedTests')
+        assertEquals(failedTests.size(), 0)
+        printCallStack()
+        assertTrue(true)
+    }
 }

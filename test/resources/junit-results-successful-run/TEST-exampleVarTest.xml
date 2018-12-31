@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="exampleVarTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2018-12-31T09:35:12" hostname="KalmsLaptop4" time="2.64">
+  <properties/>
+  <testcase name="should_return_true" classname="exampleVarTest" time="2.64"/>
+  <system-out><![CDATA[Loading shared library JenkinsBuildScripts with version master
+pipeline.jenkins starts
+getFailedTests (var) () starts
+currentBuild: Mock for MockRunWrapper, hashCode: 1216118148
+getting failed tests
+this: getFailedTests@37ea6e22
+Created test object
+test results: com.falldamagestudio.TestResults@5a734789
+getFailedTests() starts
+currentBuild: Mock for MockRunWrapper, hashCode: 1216118148
+rawBuild: class MockRun$MockitoMock$1803198657
+testResultAction type: org.codehaus.groovy.runtime.NullObject
+failed tests: null
+   pipeline.run()
+      pipeline.echo(pipeline.jenkins starts)
+      pipeline.getFailedTests()
+         getFailedTests.echo(getFailedTests (var) () starts)
+         getFailedTests.echo(currentBuild: Mock for MockRunWrapper, hashCode: 1216118148)
+         getFailedTests.echo(getting failed tests)
+         getFailedTests.echo(this: getFailedTests@37ea6e22)
+         getFailedTests.echo(Created test object)
+         getFailedTests.echo(test results: com.falldamagestudio.TestResults@5a734789)
+         getFailedTests.echo(getFailedTests() starts)
+         getFailedTests.echo(currentBuild: Mock for MockRunWrapper, hashCode: 1216118148)
+         getFailedTests.echo(rawBuild: class MockRun$MockitoMock$1803198657)
+         getFailedTests.echo(testResultAction type: org.codehaus.groovy.runtime.NullObject)
+         getFailedTests.echo(failed tests: null)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

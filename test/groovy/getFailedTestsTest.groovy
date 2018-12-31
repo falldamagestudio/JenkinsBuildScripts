@@ -1,6 +1,9 @@
 import com.lesfurets.jenkins.unit.*
 import com.lesfurets.jenkins.unit.cps.BasePipelineTestCPS
+import hudson.tasks.junit.TestResult
+import hudson.tasks.junit.TestResultAction
 import hudson.tasks.test.AbstractTestResultAction
+import hudson.tasks.test.PipelineTestDetails
 import org.junit.*
 import org.junit.rules.TemporaryFolder
 
@@ -42,15 +45,18 @@ class exampleVarTest extends BasePipelineTest {
         super.setUp()
         helper.registerAllowedMethod("echo", [String.class], { String s -> println s})
 
-        def testResults = null
+        TestResult testResult = new TestResult()
+        testResult.parse(new File("test/resources/junit-results-successful-run/TEST-exampleVarTest.xml"), new PipelineTestDetails())
+        testResult.tally();
+
+        TestResultAction testResultAction = null
 
         def rawBuild = mock(MockRun.class)
-        when(rawBuild.getAction(AbstractTestResultAction.class)).thenReturn(testResults)
+        when(rawBuild.getAction(AbstractTestResultAction.class)).thenReturn(testResultAction)
 
         def currentBuild = mock(MockRunWrapper.class)
         when(currentBuild.getRawBuild()).thenReturn(rawBuild)
-        //currentBuild.rawBuild = rawBuild
-        currentBuild.result = 'SUCCESS'
+        when(currentBuild.getResult()).thenReturn('SUCCESS')
 
         binding.setVariable('currentBuild', currentBuild)
     }

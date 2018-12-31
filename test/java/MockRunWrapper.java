@@ -4,9 +4,13 @@ import javax.annotation.CheckForNull;
 
 public class MockRunWrapper implements Serializable {
 
-    public String result;
-
     public @CheckForNull Run<?,?> getRawBuild() {
         throw new java.lang.UnsupportedOperationException();
+    }
+
+    public @CheckForNull String getResult() {
+        throw new java.lang.UnsupportedOperationException();
+        // Result result = build().getResult();
+        // return result != null ? result.toString() : null;
     }
 }

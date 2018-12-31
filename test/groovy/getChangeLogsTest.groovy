@@ -56,13 +56,13 @@ class getChangeLogsTest extends BasePipelineTest {
     void getChangeLogsReturnsAllChangesInASingleList() {
 
         List<MockChangeLogSetEntry> changeSets1 = new ArrayList<MockChangeLogSetEntry>();
-        changeSets1.add(new MockChangeLogSetEntry(new ArrayList<String>(), "1234", "change 1"));
-        changeSets1.add(new MockChangeLogSetEntry(new ArrayList<String>(), "1235", "change 2"));
+        changeSets1.add(new MockChangeLogSetEntry(new ArrayList<String>(), "user1@example.com", "1234", "change 1"));
+        changeSets1.add(new MockChangeLogSetEntry(new ArrayList<String>(), "user2@example.com", "1235", "change 2"));
 
         List<MockChangeLogSetEntry> changeSets2 = new ArrayList<MockChangeLogSetEntry>();
-        changeSets2.add(new MockChangeLogSetEntry(new ArrayList<String>(), "1236", "change 3"));
-        changeSets2.add(new MockChangeLogSetEntry(new ArrayList<String>(), "1237", "change 4"));
-        changeSets2.add(new MockChangeLogSetEntry(new ArrayList<String>(), "1238", "change 5"));
+        changeSets2.add(new MockChangeLogSetEntry(new ArrayList<String>(), "user3@example.com", "1236", "change 3"));
+        changeSets2.add(new MockChangeLogSetEntry(new ArrayList<String>(), "user1@example.com", "1237", "change 4"));
+        changeSets2.add(new MockChangeLogSetEntry(new ArrayList<String>(), "user4@example.com", "1238", "change 5"));
 
         List<ChangeLogSet<MockChangeLogSetEntry>> changes = new ArrayList<ChangeLogSet<MockChangeLogSetEntry>>();
         changes.add(new MockChangeLogSet(changeSets1));
@@ -81,14 +81,14 @@ class getChangeLogsTest extends BasePipelineTest {
     void getChangeLogsRemovesDuplicateCommits() {
 
         List<MockChangeLogSetEntry> changeSets1 = new ArrayList<MockChangeLogSetEntry>();
-        changeSets1.add(new MockChangeLogSetEntry(new ArrayList<String>(), "1234", "change 1"));
-        changeSets1.add(new MockChangeLogSetEntry(new ArrayList<String>(), "1235", "change 2"));
-        changeSets1.add(new MockChangeLogSetEntry(new ArrayList<String>(), "1234", "change 1b"));
+        changeSets1.add(new MockChangeLogSetEntry(new ArrayList<String>(), "user1@example.com", "1234", "change 1"));
+        changeSets1.add(new MockChangeLogSetEntry(new ArrayList<String>(), "user2@example.com", "1235", "change 2"));
+        changeSets1.add(new MockChangeLogSetEntry(new ArrayList<String>(), "user1@example.com", "1234", "change 1b"));
 
         List<MockChangeLogSetEntry> changeSets2 = new ArrayList<MockChangeLogSetEntry>();
-        changeSets2.add(new MockChangeLogSetEntry(new ArrayList<String>(), "1235", "change 2b"));
-        changeSets2.add(new MockChangeLogSetEntry(new ArrayList<String>(), "1237", "change 4"));
-        changeSets2.add(new MockChangeLogSetEntry(new ArrayList<String>(), "1238", "change 5"));
+        changeSets2.add(new MockChangeLogSetEntry(new ArrayList<String>(), "user2@example.com", "1235", "change 2b"));
+        changeSets2.add(new MockChangeLogSetEntry(new ArrayList<String>(), "user1@example.com", "1237", "change 4"));
+        changeSets2.add(new MockChangeLogSetEntry(new ArrayList<String>(), "user4@example.com", "1238", "change 5"));
 
         List<ChangeLogSet<MockChangeLogSetEntry>> changes = new ArrayList<ChangeLogSet<MockChangeLogSetEntry>>();
         changes.add(new MockChangeLogSet(changeSets1));

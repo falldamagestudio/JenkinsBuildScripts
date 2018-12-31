@@ -102,6 +102,8 @@ class getAllCommittersSinceLastSuccessfulBuildTest extends BasePipelineTest {
         binding.setVariable('committers', null)
         runScript('test/jenkins/getAllCommittersSinceLastSuccessfulBuild.jenkins')
         def committers = binding.getVariable('committers')
+
+        // Ensure all users in current & previous1 builds are listed, but none that are unique for previous2 build
         assertEquals(6, committers.size())
         assertTrue(committers.contains('user1@example.com'))
         assertTrue(committers.contains('user2@example.com'))
@@ -109,6 +111,7 @@ class getAllCommittersSinceLastSuccessfulBuildTest extends BasePipelineTest {
         assertTrue(committers.contains('user4@example.com'))
         assertTrue(committers.contains('user5@example.com'))
         assertTrue(committers.contains('user7@example.com'))
+
         printCallStack()
         assertTrue(true)
     }

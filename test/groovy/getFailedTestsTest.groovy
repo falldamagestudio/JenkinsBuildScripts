@@ -49,7 +49,7 @@ class exampleVarTest extends BasePipelineTest {
         testResult.parse(new File("test/resources/junit-example-results/two-successful-two-failures.xml"), new PipelineTestDetails())
         testResult.tally();
 
-        MockTestResultAction testResultAction = mock(MockTestResultAction.class)
+        MockTestResultAction testResultAction = new MockTestResultAction(testResult)
 
         def rawBuild = mock(MockRun.class)
         when(rawBuild.getAction(AbstractTestResultAction.class)).thenReturn(testResultAction)

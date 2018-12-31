@@ -1,6 +1,8 @@
+import hudson.tasks.junit.CaseResult;
 import hudson.tasks.junit.TestResult;
 import hudson.tasks.test.AbstractTestResultAction;
 import java.io.Serializable;
+import java.util.List;
 import javax.annotation.CheckForNull;
 
 public class MockTestResultAction extends AbstractTestResultAction<MockTestResultAction> {
@@ -21,5 +23,17 @@ public class MockTestResultAction extends AbstractTestResultAction<MockTestResul
 
     @Override public int getFailCount() {
         return testResult.getFailCount();
+    }
+
+    @Override public List<CaseResult> getFailedTests() {
+        return testResult.getFailedTests();
+    }
+
+    @Override public List<CaseResult> getSkippedTests() {
+        return testResult.getSkippedTests();
+    }
+
+    @Override public List<CaseResult> getPassedTests() {
+        return testResult.getPassedTests();
     }
 }

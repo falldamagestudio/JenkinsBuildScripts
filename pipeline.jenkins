@@ -2,4 +2,7 @@
 @Library("JenkinsBuildScripts@master") _
 
 echo "pipeline.jenkins starts"
-getFailedTests()
+def failedTests = getFailedTests()
+for (failedTest in failedTests) {
+    echo "failed test: ${failedTest.name}, ${failedTest.url}"
+}

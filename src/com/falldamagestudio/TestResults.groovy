@@ -25,10 +25,10 @@ class TestResults implements Serializable {
             if (caseResults != null)
                 return toTestCases(script.currentBuild.absoluteUrl, testResultAction, caseResults)
             else
-                return null
+                return new ArrayList<TestCase>()
         }
         else
-            return null
+            return new ArrayList<TestCase>()
     }
 
     def toTestCases(String runUrl, AbstractTestResultAction testResultAction, List<CaseResult> caseResults) {

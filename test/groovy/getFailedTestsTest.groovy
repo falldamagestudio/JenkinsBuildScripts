@@ -13,7 +13,7 @@ import static com.lesfurets.jenkins.unit.global.lib.LocalSource.localSource
 import static org.mockito.Mockito.*
 
 
-class exampleVarTest extends BasePipelineTest {
+class getFailedTestsTest extends BasePipelineTest {
 
     @ClassRule
     public static TemporaryFolder folder = new TemporaryFolder()
@@ -70,7 +70,7 @@ class exampleVarTest extends BasePipelineTest {
 
         registerCurrentBuildWithTestResults("test/resources/junit-example-results/two-successful-two-failures.xml")
         binding.setVariable('failedTests', '')
-        runScript('pipeline.jenkins')
+        runScript('test/jenkins/getFailedTests.jenkins')
         def failedTests = binding.getVariable('failedTests')
         assertEquals(failedTests.size(), 2)
         printCallStack()

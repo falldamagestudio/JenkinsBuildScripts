@@ -49,4 +49,26 @@ class SCMInfo implements Serializable {
         
         return changeSetId
     }
+
+    def getAllCommittersSinceLastSuccessfulBuild(firstBuildToCheck) {
+
+        def changes = ""
+
+        def committers = new HashSet<String>()
+
+        def build = firstBuildToCheck
+
+        while (build && (!build.result || (build.result.toString() != 'SUCCESS'))) {
+
+            for (changeSet in build.changeSets) {
+                for (entry in changeSet) {
+                    committers.add(entry.user)
+                }
+            }
+
+            build = build.getPreviousBuild()
+        }
+
+        return committers
+    }
 }

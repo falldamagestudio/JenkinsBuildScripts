@@ -24,4 +24,10 @@ public class MockRunWrapper implements Serializable {
     public List<ChangeLogSet<? extends ChangeLogSet.Entry>> getChangeSets() throws Exception {
         throw new java.lang.UnsupportedOperationException();
     }
+
+    public @CheckForNull MockRunWrapper getPreviousBuild() {
+        throw new java.lang.UnsupportedOperationException();
+        // Run<?,?> previousBuild = build().getPreviousBuild();
+        // return previousBuild != null ? new RunWrapper(previousBuild, false) : null;
+    }
 }

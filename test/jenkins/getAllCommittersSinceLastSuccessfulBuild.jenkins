@@ -1,0 +1,4 @@
+
+@Library("JenkinsBuildScripts@master") _
+
+committers = new com.falldamagestudio.SCMInfo(this).getAllCommittersSinceLastSuccessfulBuild(currentBuild)

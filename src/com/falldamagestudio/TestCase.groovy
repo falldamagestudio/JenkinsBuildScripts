@@ -6,8 +6,8 @@ class TestCase implements Serializable {
     String name
     String url
 
-    TestCase(CaseResult caseResult) {
-        name = caseResult.displayName
-        url = caseResult.safeName
+    TestCase(name, url) {
+        this.name = name
+        this.url = url
     }
 }

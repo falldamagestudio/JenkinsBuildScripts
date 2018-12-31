@@ -23,7 +23,7 @@ class TestResults implements Serializable {
         if (testResultAction != null) {
             def caseResults = testResultAction.failedTests
             if (caseResults != null)
-                return toTestCases(caseResults)
+                return toTestCases(script.currentBuild.absoluteUrl, testResultAction, caseResults)
             else
                 return null
         }
@@ -31,11 +31,11 @@ class TestResults implements Serializable {
             return null
     }
 
-    def toTestCases(List<CaseResult> caseResults) {
+    def toTestCases(String runUrl, AbstractTestResultAction testResultAction, List<CaseResult> caseResults) {
         def testCases = new ArrayList<TestCase>()
 
         for (CaseResult caseResult : caseResults) {
-            testCases.add(new TestCase(caseResult))
+            testCases.add(new TestCase(caseResult.displayName, runUrl + testResultAction.getTestResultPath(caseResult)))
         }
         return testCases
     }

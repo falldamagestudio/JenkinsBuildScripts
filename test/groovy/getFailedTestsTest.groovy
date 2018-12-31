@@ -57,6 +57,7 @@ class exampleVarTest extends BasePipelineTest {
         def currentBuild = mock(MockRunWrapper.class)
         when(currentBuild.getRawBuild()).thenReturn(rawBuild)
         when(currentBuild.getResult()).thenReturn('SUCCESS')
+        when(currentBuild.getAbsoluteUrl()).thenReturn('https://my-jenkins-installation.com/job/TestJob/14/')
 
         binding.setVariable('currentBuild', currentBuild)
     }

@@ -1,16 +1,21 @@
 import hudson.model.Run;
 import java.io.Serializable;
 import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
 
 public class MockRunWrapper implements Serializable {
 
-    public @CheckForNull Run<?,?> getRawBuild() {
+    @CheckForNull public Run<?,?> getRawBuild() {
         throw new java.lang.UnsupportedOperationException();
     }
 
-    public @CheckForNull String getResult() {
+    @CheckForNull public String getResult() {
         throw new java.lang.UnsupportedOperationException();
         // Result result = build().getResult();
         // return result != null ? result.toString() : null;
+    }
+
+    @Nonnull public String getAbsoluteUrl() {
+        throw new java.lang.UnsupportedOperationException();
     }
 }

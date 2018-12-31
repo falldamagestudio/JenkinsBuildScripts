@@ -46,7 +46,7 @@ class exampleVarTest extends BasePipelineTest {
         helper.registerAllowedMethod("echo", [String.class], { String s -> println s})
 
         TestResult testResult = new TestResult()
-        testResult.parse(new File("test/resources/junit-results-successful-run/TEST-exampleVarTest.xml"), new PipelineTestDetails())
+        testResult.parse(new File("test/resources/junit-example-results/two-successful-two-failures.xml"), new PipelineTestDetails())
         testResult.tally();
 
         TestResultAction testResultAction = null

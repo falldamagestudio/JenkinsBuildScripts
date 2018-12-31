@@ -1,0 +1,16 @@
+<testsuite tests="3">
+    <testcase classname="foo1" name="ASuccessfulTest" time="0.01"/>
+	<system-out><![CDATA[stdout from running foo1]]></system-out>
+    <testcase classname="foo2" name="AnotherSuccessfulTest" time="0.02"/>
+	<system-out><![CDATA[stdout from running foo2]]></system-out>
+    <testcase classname="foo3" name="AFailingTest" time="1.24">
+        <failure type="NotEnoughFoo"> details about failure 1 </failure>
+    </testcase>
+	<system-out><![CDATA[stdout from running foo3]]></system-out>
+	<system-err><![CDATA[stderr from running foo3]]></system-err>
+    <testcase classname="foo4" name="ASecondFailingTest" time="0.07">
+        <failure type="TooMuchFoo"> details about failure 2 </failure>
+    </testcase>
+	<system-out><![CDATA[stdout from running foo4]]></system-out>
+	<system-err><![CDATA[stderr from running foo4]]></system-err>
+</testsuite>

@@ -44,9 +44,12 @@ class exampleVarTest extends BasePipelineTest {
 
         super.setUp()
         helper.registerAllowedMethod("echo", [String.class], { String s -> println s})
+    }
+
+    void registerCurrentBuildWithTestResults(testResultsXmlFile) {
 
         TestResult testResult = new TestResult()
-        testResult.parse(new File("test/resources/junit-example-results/two-successful-two-failures.xml"), new PipelineTestDetails())
+        testResult.parse(new File(testResultsXmlFile), new PipelineTestDetails())
         testResult.tally();
 
         MockTestResultAction testResultAction = new MockTestResultAction(testResult)
@@ -63,8 +66,13 @@ class exampleVarTest extends BasePipelineTest {
     }
 
     @Test
-    void should_return_true() {
+    void getFailedTestsReturnsFailedTests() {
+
+        registerCurrentBuildWithTestResults("test/resources/junit-example-results/two-successful-two-failures.xml")
+        binding.setVariable('failedTests', '')
         runScript('pipeline.jenkins')
+        def failedTests = binding.getVariable('failedTests')
+        assertEquals(failedTests.size(), 2)
         printCallStack()
         assertTrue(true)
     }

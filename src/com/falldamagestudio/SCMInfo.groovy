@@ -71,4 +71,28 @@ class SCMInfo implements Serializable {
 
         return committers
     }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Gather up e-mail addresses of all people who have committed anything during the last series of non-successful builds (including current build)
+    // If the last build was successful, this will return an empty set
+    def getPeopleToInformAboutNonSuccessfulBuild() {
+        if (script.currentBuild) {
+            return getAllCommittersSinceLastSuccessfulBuild(script.currentBuild)
+        }
+        else
+            return new HashSet<String>()
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Gather up e-mail addresses of all people who have committed anything during the last series of non-successful builds (excluding current build)
+    // If the second-to-last build was successful, this will return an empty set
+    def getPeopleToInformAboutSuccessfulBuild() {
+        if (script.currentBuild) {
+            return getAllCommittersSinceLastSuccessfulBuild(script.currentBuild.getPreviousBuild())
+        }
+        else
+            return new HashSet<String>()
+    }
 }

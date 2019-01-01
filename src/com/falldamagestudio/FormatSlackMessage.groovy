@@ -33,7 +33,7 @@ class FormatSlackMessage implements Serializable {
             }
             return lines
         } else
-            return null
+            return []
     }
 
     def getFailedTestsLines(failedTests) {
@@ -45,7 +45,7 @@ class FormatSlackMessage implements Serializable {
             }
             return lines
         } else
-            return null
+            return []
     }
 
     def concatenateLinesToMessage(lines) {

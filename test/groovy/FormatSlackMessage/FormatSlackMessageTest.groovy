@@ -47,13 +47,13 @@ class FormatSlackMessageTest extends LocalSharedLibraryPipelineTest {
     }
 
     @Test
-    void returnsNullForNoChanges() {
+    void returnsEmptyArrayForNoChanges() {
         def changeLogs = []
         binding.setVariable('changeLogs', changeLogs)
         binding.setVariable('lines', null)
         runScript('test/jenkins/FormatSlackMessage/getChangeLogsLines.jenkins')
         def lines = binding.getVariable('lines')
-        assertNull(lines)
+        assertEquals(0, lines.size())
     }
 
     @Test
@@ -71,13 +71,13 @@ class FormatSlackMessageTest extends LocalSharedLibraryPipelineTest {
     }
 
     @Test
-    void returnsNullForNoFailedTests() {
+    void returnsEmptyArrayForNoFailedTests() {
         def failedTests = []
         binding.setVariable('failedTests', failedTests)
         binding.setVariable('lines', null)
         runScript('test/jenkins/FormatSlackMessage/getFailedTestsLines.jenkins')
         def lines = binding.getVariable('lines')
-        assertNull(lines)
+        assertEquals(0, lines.size())
     }
 
     @Test

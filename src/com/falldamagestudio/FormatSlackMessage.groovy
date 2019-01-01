@@ -14,12 +14,12 @@ class FormatSlackMessage implements Serializable {
         return "*Build ${result} - ${projectName} - cs:${changeSetId}*"
     }
 
-    def getGoogleDriveDownloadLine(bucket, fileName) {
-        return "<https://storage.cloud.google.com/${bucket}/${fileName}|Download build>"
+    def getGoogleDriveDownloadLine(bucketName, fileName) {
+        return "<https://storage.cloud.google.com/${bucketName}/${fileName}|Download build>"
     }
 
-    def getSteamBuildLine(steamProductName, branchName) {
-        return "Available in Steam application ${steamProductName}, branch [${branchName}]"
+    def getSteamBuildLine(steamProductName, steamBranchName) {
+        return "Available in Steam application ${steamProductName}, branch [${steamBranchName}]"
     }
 
     def getChangeLogsLines(changeLogs) {
@@ -46,5 +46,40 @@ class FormatSlackMessage implements Serializable {
             return lines
         } else
             return null
+    }
+
+    def concatenateLinesToMessage(lines) {
+        def message = ""
+        for (line in lines) {
+            if (line) {
+                message += "${line}\n"
+            }
+        }
+
+        return message
+    }
+
+    def getFailedMessage(projectName, changeSetId, failedStep, changeLogs, failedTests) {
+        def lines = []
+        lines.addAll(getHeaderLine(projectName, changeSetId, failedStep))
+        lines.addAll(getChangeLogsLines(changeLogs))
+        lines.addAll(getFailedTestsLines(failedTests))
+        return concatenateLinesToMessage(lines)
+    }
+
+    def getSuccessMessage_gDrive(projectName, changeSetId, changeLogs, bucketName, fileName) {
+        def lines = []
+        lines.addAll(getHeaderLine(projectName, changeSetId, null))
+        lines.addAll(getGoogleDriveDownloadLine(bucketName, fileName))
+        lines.addAll(getChangeLogsLines(changeLogs))
+        return concatenateLinesToMessage(lines)
+    }
+
+    def getSuccessMessage_steam(projectName, changeSetId, changeLogs, steamProductName, steamBranchName) {
+        def lines = []
+        lines.addAll(getHeaderLine(projectName, changeSetId, null))
+        lines.addAll(getSteamBuildLine(steamProductName, steamBranchName))
+        lines.addAll(getChangeLogsLines(changeLogs))
+        return concatenateLinesToMessage(lines)
     }
 }

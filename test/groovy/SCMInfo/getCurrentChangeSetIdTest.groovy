@@ -11,7 +11,7 @@ class getCurrentChangeSetIdTest extends LocalSharedLibraryPipelineTest {
 
         helper.registerAllowedMethod('bat', [LinkedHashMap], { return '''
                                                                         | C:\\Jenkins\\workspace\\PongSP-Windows>cm status --nochanges C:\\Jenkins\\workspace\\PongSP-Windows/PongSP 
-                                                                        | cs:67@rep:PongSP@repserver:<org>@Cloud''' })
+                                                                        | cs:67@rep:PongSP@repserver:<org>@Cloud'''.stripMargin() })
 
         def environment = [SOURCE_DIR : 'source_dir']
         binding.setVariable('env', environment)

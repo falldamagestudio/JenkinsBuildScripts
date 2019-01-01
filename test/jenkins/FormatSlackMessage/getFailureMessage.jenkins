@@ -7,4 +7,4 @@ for (failedTest in failedTests) {
     failedTestCases.add(failedTestCase)
 }
 
-message = new com.falldamagestudio.FormatSlackMessage(this).getFailedMessage(projectName, changeSetId, failedStep, changeLogs, failedTestCases)
+message = new com.falldamagestudio.FormatSlackMessage(this).getFailureMessage(projectName, changeSetId, failedStep, changeLogs, failedTestCases)

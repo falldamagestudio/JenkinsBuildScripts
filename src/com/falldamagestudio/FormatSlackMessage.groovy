@@ -59,7 +59,7 @@ class FormatSlackMessage implements Serializable {
         return message
     }
 
-    def getFailedMessage(projectName, changeSetId, failedStep, changeLogs, failedTests) {
+    def getFailureMessage(projectName, changeSetId, failedStep, changeLogs, failedTests) {
         def lines = []
         lines.addAll(getHeaderLine(projectName, changeSetId, failedStep))
         lines.addAll(getChangeLogsLines(changeLogs))

@@ -7,7 +7,7 @@ def call(projectName, failedStep) {
 
     def formatSlackMessage = new com.falldamagestudio.FormatSlackMessage(this)
 
-    def message = formatSlackMessage.getFailedMessage(projectName, scmInfo.getCurrentChangeSetId(), failedStep, scmInfo.getChangeLogs(), failedTests)
+    def message = formatSlackMessage.getFailureMessage(projectName, scmInfo.getCurrentChangeSetId(), failedStep, scmInfo.getChangeLogs(), failedTests)
 
     return message
 }

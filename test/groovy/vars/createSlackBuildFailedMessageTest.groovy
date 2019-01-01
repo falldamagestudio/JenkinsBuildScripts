@@ -7,7 +7,7 @@ import org.junit.Test
 import static groovy.test.GroovyAssert.*
 import static org.mockito.Mockito.*
 
-class createSlackFailedMessageTest extends LocalSharedLibraryPipelineTest {
+class createSlackBuildFailedMessageTest extends LocalSharedLibraryPipelineTest {
 
     void registerCurrentBuildWithChangeSetsAndTestResults(changeSets, testResultsXmlFile) {
 
@@ -57,7 +57,7 @@ class createSlackFailedMessageTest extends LocalSharedLibraryPipelineTest {
         binding.setVariable('projectName', 'my-project')
         binding.setVariable('failedStep', 'Tests')
         binding.setVariable('message', null)
-        runScript('test/jenkins/vars/createSlackFailedMessage.jenkins')
+        runScript('test/jenkins/vars/createSlackBuildFailedMessage.jenkins')
         def message = binding.getVariable('message')
 
         assertEquals('''*Build failed in 'Tests' - my-project - cs:67*

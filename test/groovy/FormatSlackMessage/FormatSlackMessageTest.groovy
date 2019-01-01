@@ -122,7 +122,7 @@ class FormatSlackMessageTest extends LocalSharedLibraryPipelineTest {
             new Tuple('test 3', 'http://test_3_url')]
         binding.setVariable('failedTests', failedTests)
         binding.setVariable('message', null)
-        runScript('test/jenkins/FormatSlackMessage/getFailedMessage.jenkins')
+        runScript('test/jenkins/FormatSlackMessage/getFailureMessage.jenkins')
         def message = binding.getVariable('message')
 
         assertEquals('''*Build failed in \'Tests\' - my-project - cs:12345*

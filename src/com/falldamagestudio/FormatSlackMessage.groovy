@@ -48,6 +48,18 @@ class FormatSlackMessage implements Serializable {
             return []
     }
 
+    def getFailedTestsLinesWithoutHeader(failedTests) {
+        if (failedTests.size() > 0) {
+            def lines = []
+            for (testCase in failedTests) {
+                def line = "<${testCase.url}|${testCase.name}>"
+                lines.add(line)
+            }
+            return lines
+        } else
+            return []
+    }
+
     def concatenateLinesToMessage(lines) {
         def message = ""
         for (line in lines) {
@@ -57,6 +69,28 @@ class FormatSlackMessage implements Serializable {
         }
 
         return message
+    }
+
+    def convertFailedTestsToMessages(failedTests) {
+        def lines = getFailedTestsLinesWithoutHeader(failedTests)
+
+        def messages = []
+        def message = ""
+
+        def maxMessageLength = 1000
+        for (line in lines) {
+            if ((message.length() > 0) && (message.length() + line.length() >= maxMessageLength)) {
+                messages.add(message)
+                message = ""
+            }
+
+            message += "${line}\n"
+        }
+
+        if (message.length() > 0)
+            messages.add(message)
+
+        return messages
     }
 
     def getFailureMessage(projectName, changeSetId, failedStep, changeLogs, failedTests) {

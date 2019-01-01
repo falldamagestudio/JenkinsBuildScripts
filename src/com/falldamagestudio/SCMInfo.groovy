@@ -39,11 +39,11 @@ class SCMInfo implements Serializable {
 
             def cmResult = script.sh script: "cm status --nochanges ${script.env.SOURCE_DIR}", returnStdout: true
 
-            script.echo cmResult
             // Result will be a multiline string like this:
             //      cs:67@rep:PongSP@repserver:<org>@Cloud
 
             // Extract the number '67' from the above multiline string
+            def cmResultLines = cmResult.split('\n')
             def changeSetId = cmResultLines[0].tokenize(':@')[1]
             
             return changeSetId

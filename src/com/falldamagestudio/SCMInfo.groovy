@@ -36,10 +36,10 @@ class SCMInfo implements Serializable {
     def getCurrentChangeSetId()
     {
         def cmResult = null
-        if (script.isWindows())
-            cmResult = script.bat script: "cm status --nochanges ${script.env.SOURCE_DIR}", returnStdout: true
-        else
+        if (script.isUnix())
             cmResult = script.sh script: "cm status --nochanges ${script.env.SOURCE_DIR}", returnStdout: true
+        else
+            cmResult = script.bat script: "cm status --nochanges ${script.env.SOURCE_DIR}", returnStdout: true
 
         // Result will be a multiline string like this:
         //

@@ -33,7 +33,7 @@ class getChangeLogsTest extends LocalSharedLibraryPipelineTest {
 
         registerCurrentBuildWithChangeSets(changes)
         binding.setVariable('changeLogs', null)
-        runScript('test/jenkins/getChangeLogs.jenkins')
+        runScript('test/jenkins/SCMInfo/getChangeLogs.jenkins')
         def changeLogs = binding.getVariable('changeLogs')
         assertEquals(5, changeLogs.size())
         printCallStack()
@@ -59,7 +59,7 @@ class getChangeLogsTest extends LocalSharedLibraryPipelineTest {
 
         registerCurrentBuildWithChangeSets(changes)
         binding.setVariable('changeLogs', null)
-        runScript('test/jenkins/getChangeLogs.jenkins')
+        runScript('test/jenkins/SCMInfo/getChangeLogs.jenkins')
 
         def changeLogs = binding.getVariable('changeLogs')
         assertEquals(4, changeLogs.size())

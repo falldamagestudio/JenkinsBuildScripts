@@ -33,7 +33,7 @@ class getFailedTestsTest extends LocalSharedLibraryPipelineTest {
 
         registerCurrentBuildWithTestResults("test/resources/junit-example-results/two-successful-two-failures.xml")
         binding.setVariable('failedTests', '')
-        runScript('test/jenkins/getFailedTests.jenkins')
+        runScript('test/jenkins/vars/getFailedTests.jenkins')
         def failedTests = binding.getVariable('failedTests')
         assertEquals(failedTests.size(), 2)
         printCallStack()
@@ -45,7 +45,7 @@ class getFailedTestsTest extends LocalSharedLibraryPipelineTest {
 
         registerCurrentBuildWithTestResults("test/resources/junit-example-results/two-successful.xml")
         binding.setVariable('failedTests', '')
-        runScript('test/jenkins/getFailedTests.jenkins')
+        runScript('test/jenkins/vars/getFailedTests.jenkins')
         def failedTests = binding.getVariable('failedTests')
         assertEquals(failedTests.size(), 0)
         printCallStack()

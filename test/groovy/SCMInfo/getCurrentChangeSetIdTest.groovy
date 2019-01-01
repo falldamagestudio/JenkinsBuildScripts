@@ -17,7 +17,7 @@ class getCurrentChangeSetIdTest extends LocalSharedLibraryPipelineTest {
         binding.setVariable('env', environment)
 
         binding.setVariable('currentChangeSetId', null)
-        runScript('test/jenkins/getCurrentChangeSetId.jenkins')
+        runScript('test/jenkins/SCMInfo/getCurrentChangeSetId.jenkins')
         def currentChangeSetId = binding.getVariable('currentChangeSetId')
         assertEquals("67", currentChangeSetId)
         printCallStack()

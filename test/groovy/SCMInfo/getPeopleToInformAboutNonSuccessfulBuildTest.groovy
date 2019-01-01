@@ -4,7 +4,7 @@ import org.junit.Test
 import static groovy.test.GroovyAssert.*
 import static org.mockito.Mockito.*
 
-class getAllCommittersSinceLastSuccessfulBuildTest extends LocalSharedLibraryPipelineTest {
+class getPeopleToInformAboutNonSuccessfulBuildTest extends LocalSharedLibraryPipelineTest {
 
     void registerSeveralBuildsWithChangeSets(currentSuccess, previous1Success, previous2Success) {
 
@@ -58,12 +58,12 @@ class getAllCommittersSinceLastSuccessfulBuildTest extends LocalSharedLibraryPip
     }
 
     @Test
-    void getAllCommittersSinceLastSuccessfulBuildReturnsNames() {
+    void returnsAllCommittersSinceLastSuccessfulBuild() {
 
         registerSeveralBuildsWithChangeSets('FAILED', 'FAILED', 'SUCCESS')
 
         binding.setVariable('committers', null)
-        runScript('test/jenkins/getAllCommittersSinceLastSuccessfulBuild.jenkins')
+        runScript('test/jenkins/SCMInfo/getPeopleToInformAboutNonSuccessfulBuild.jenkins')
         def committers = binding.getVariable('committers')
 
         // Ensure all users in current & previous1 builds are listed, but none that are unique for previous2 build

@@ -63,7 +63,7 @@ class getPeopleToInformAboutSuccessfulBuildTest extends LocalSharedLibraryPipeli
         registerSeveralBuildsWithChangeSets('SUCCESS', 'FAILED', 'SUCCESS')
 
         binding.setVariable('committers', null)
-        runScript('test/jenkins/getPeopleToInformAboutSuccessfulBuild.jenkins')
+        runScript('test/jenkins/SCMInfo/getPeopleToInformAboutSuccessfulBuild.jenkins')
         def committers = binding.getVariable('committers')
 
         // Ensure all users in previous1 builds are listed

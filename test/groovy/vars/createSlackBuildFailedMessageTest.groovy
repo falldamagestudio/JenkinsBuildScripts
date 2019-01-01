@@ -51,6 +51,8 @@ class createSlackBuildFailedMessageTest extends LocalSharedLibraryPipelineTest {
                                                                         | C:\\Jenkins\\workspace\\PongSP-Windows>cm status --nochanges C:\\Jenkins\\workspace\\PongSP-Windows/PongSP 
                                                                         | cs:67@rep:PongSP@repserver:<org>@Cloud'''.stripMargin() })
 
+        helper.registerAllowedMethod('isWindows', [], { return true })
+
         def environment = [SOURCE_DIR : 'source_dir']
         binding.setVariable('env', environment)
 

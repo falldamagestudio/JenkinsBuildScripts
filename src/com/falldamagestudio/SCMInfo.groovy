@@ -39,7 +39,7 @@ class SCMInfo implements Serializable {
 
             def cmResult = script.sh script: "cm status --nochanges ${script.env.SOURCE_DIR}", returnStdout: true
 
-            echo cmResult
+            script.echo cmResult
             // Result will be a multiline string like this:
             //      cs:67@rep:PongSP@repserver:<org>@Cloud
 

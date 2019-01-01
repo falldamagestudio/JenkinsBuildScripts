@@ -136,6 +136,24 @@ class FormatSlackMessageTest extends LocalSharedLibraryPipelineTest {
                        |'''.stripMargin(), (String)message)
     }
 
+   @Test
+    void returnsSuccessMessage() {
+        binding.setVariable('projectName', 'my-project')
+        binding.setVariable('changeSetId', '12345')
+        def changeLogs = [new MockChangeLogSetEntry(null, 'user1@example.com', '1234', 'change 1'),
+            new MockChangeLogSetEntry(null, 'user2@example.com', '1235', 'change 2')]
+        binding.setVariable('changeLogs', changeLogs)
+        binding.setVariable('message', null)
+        runScript('test/jenkins/FormatSlackMessage/getSuccessMessage.jenkins')
+        def message = binding.getVariable('message')
+
+        assertEquals('''*Build succeeded - my-project - cs:12345*
+                       |Changes:
+                       |>_user1@example.com_ change 1
+                       |>_user2@example.com_ change 2
+                       |'''.stripMargin(), (String)message)
+    }
+
     @Test
     void returnsSuccessMessageWithGoogleDriveLink() {
         binding.setVariable('projectName', 'my-project')

@@ -67,6 +67,13 @@ class FormatSlackMessage implements Serializable {
         return concatenateLinesToMessage(lines)
     }
 
+    def getSuccessMessage(projectName, changeSetId, changeLogs) {
+        def lines = []
+        lines.addAll(getHeaderLine(projectName, changeSetId, null))
+        lines.addAll(getChangeLogsLines(changeLogs))
+        return concatenateLinesToMessage(lines)
+    }
+
     def getSuccessMessage_gDrive(projectName, changeSetId, changeLogs, bucketName, fileName) {
         def lines = []
         lines.addAll(getHeaderLine(projectName, changeSetId, null))

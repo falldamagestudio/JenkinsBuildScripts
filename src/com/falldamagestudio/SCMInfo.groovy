@@ -35,24 +35,37 @@ class SCMInfo implements Serializable {
 
     def getCurrentChangeSetId()
     {
-        def cmResult = null
-        if (script.isUnix())
-            cmResult = script.sh script: "cm status --nochanges ${script.env.SOURCE_DIR}", returnStdout: true
-        else
-            cmResult = script.bat script: "cm status --nochanges ${script.env.SOURCE_DIR}", returnStdout: true
+        if (script.isUnix()) {
 
-        // Result will be a multiline string like this:
-        //
-        //		<blank line>
-        //      C:\Jenkins\workspace\PongSP-Windows>cm status --nochanges C:\Jenkins\workspace\PongSP-Windows/PongSP 
-        //      cs:67@rep:PongSP@repserver:<org>@Cloud
+            def cmResult = script.sh script: "cm status --nochanges ${script.env.SOURCE_DIR}", returnStdout: true
 
-        // Extract the number '67' from the above multiline string
-        def cmResultLines = cmResult.split('\n')
-        assert 3 == cmResultLines.size()
-        def changeSetId = cmResultLines[2].tokenize(':@')[1]
-        
-        return changeSetId
+            echo cmResult
+            // Result will be a multiline string like this:
+            //      cs:67@rep:PongSP@repserver:<org>@Cloud
+
+            // Extract the number '67' from the above multiline string
+            def changeSetId = cmResultLines[0].tokenize(':@')[1]
+            
+            return changeSetId
+
+        } else {
+
+            def cmResult = script.bat script: "cm status --nochanges ${script.env.SOURCE_DIR}", returnStdout: true
+
+            // Result will be a multiline string like this:
+            //
+            //		<blank line>
+            //      C:\Jenkins\workspace\PongSP-Windows>cm status --nochanges C:\Jenkins\workspace\PongSP-Windows/PongSP 
+            //      cs:67@rep:PongSP@repserver:<org>@Cloud
+
+            // Extract the number '67' from the above multiline string
+            def cmResultLines = cmResult.split('\n')
+            assert 3 == cmResultLines.size()
+            def changeSetId = cmResultLines[2].tokenize(':@')[1]
+            
+            return changeSetId
+        }
+
     }
 
     def getAllCommittersSinceLastSuccessfulBuild(firstBuildToCheck) {

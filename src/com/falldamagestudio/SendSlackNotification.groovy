@@ -16,6 +16,8 @@ class SendSlackNotification implements Serializable {
 
     def sendAsThreadedMessage(channel, color, messages) {
 
+        // Beware: this message is broken. It appears that the slack plugin doesn't return any slackResponse after all.
+
         if (messages.size() > 0)
         {
             def slackResponse = script.slackSend(channel: channel, color: color, message: messages[0])
@@ -24,31 +26,6 @@ class SendSlackNotification implements Serializable {
 
             for (def i = 1; i < messages.size(); i++)
                 script.slackSend channel: slackResponse.threadId, color: color, message: messages[i]
-        }
-    }
-
-    def sendAsSingleMessageWithThreadsIfNecessary(channel, color, messages, maxMessageLength = 1900) {
-
-        if (messages.size() > 0) {
-
-            def firstMessage = messages[0]
-
-            def i
-
-            for (i = 1; i < messages.size(); i++) {
-                if ((firstMessage.length() + messages[i].length()) > maxMessageLength)
-                    break;
-
-                firstMessage += messages[i]
-            }
-
-            def remainingMessages = messages[(i..<messages.size())]
-
-            def newMessages = []
-            newMessages.add(firstMessage)
-            newMessages.addAll(remainingMessages)
-
-            sendAsThreadedMessage(channel, color, newMessages)
         }
     }
 }

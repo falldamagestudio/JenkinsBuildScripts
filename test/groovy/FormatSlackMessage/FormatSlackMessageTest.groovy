@@ -185,7 +185,7 @@ class FormatSlackMessageTest extends LocalSharedLibraryPipelineTest {
     }
 
     @Test
-    void returnsFailedMessageWithTestDetails() {
+    void returnsFailedMessagesWithTestDetails() {
         binding.setVariable('projectName', 'my-project')
         binding.setVariable('changeSetId', '12345')
         binding.setVariable('failedStep', 'Tests')
@@ -196,19 +196,21 @@ class FormatSlackMessageTest extends LocalSharedLibraryPipelineTest {
             new Tuple('test 2', 'http://test_2_url'),
             new Tuple('test 3', 'http://test_3_url')]
         binding.setVariable('failedTests', failedTests)
-        binding.setVariable('message', null)
-        runScript('test/jenkins/FormatSlackMessage/getFailureMessage.jenkins')
-        def message = binding.getVariable('message')
+        binding.setVariable('messages', null)
+        runScript('test/jenkins/FormatSlackMessage/getFailureMessages.jenkins')
+        def messages = binding.getVariable('messages')
 
-        assertEquals('''*Build failed in \'Tests\' - my-project - cs:12345*
-                       |Changes:
+        assertEquals(3, messages.size())
+        assertEquals('*Build failed in \'Tests\' - my-project - cs:12345*\n', (String)messages[0])
+        assertEquals('''Changes:
                        |>_user1@example.com_ change 1
                        |>_user2@example.com_ change 2
-                       |Failed tests:
+                       |'''.stripMargin(), (String)messages[1])
+        assertEquals('''Failed tests:
                        |<http://test_1_url|test 1>
                        |<http://test_2_url|test 2>
                        |<http://test_3_url|test 3>
-                       |'''.stripMargin(), (String)message)
+                       |'''.stripMargin(), (String)messages[2])
     }
 
    @Test

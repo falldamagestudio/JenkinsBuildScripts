@@ -1,0 +1,4 @@
+
+@Library("JenkinsBuildScripts@master") _
+
+message = sendSlackBuildFailedMessage(channel, projectName, failedStep)

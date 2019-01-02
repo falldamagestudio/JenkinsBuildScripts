@@ -6,14 +6,8 @@ def call(channel, projectName, failedStep) {
     def scmInfo = new com.falldamagestudio.SCMInfo(this)
 
     def formatSlackMessage = new com.falldamagestudio.FormatSlackMessage(this)
+    def messages = formatSlackMessage.getFailureMessages(projectName, scmInfo.getCurrentChangeSetId(), failedStep, scmInfo.getChangeLogs(), failedTests)
 
-    def message = formatSlackMessage.getFailureMessage(projectName, scmInfo.getCurrentChangeSetId(), failedStep, scmInfo.getChangeLogs(), failedTests)
-
-    def slackResponse = slackSend channel: channel, color: 'bad', message: message
-
-    def failedTestsMessages = formatSlackMessage.convertFailedTestsToMessages(failedTests)
-
-    for (failedTestsMessage in failedTestsMessages) {
-        slackSend channel: slackResponse.threadId, color: 'bad', message: failedTestsMessage
-    }
+    def sendSlackMessage = new com.falldamagestudio.SendSlackMessage(this)
+    sendSlackMessage.sendAsMultipleMessages(channel, 'bad', messages)
 }

@@ -71,17 +71,33 @@ class FormatSlackMessage implements Serializable {
         return message
     }
 
-    def convertFailedTestsToMessages(failedTests) {
-        def lines = getFailedTestsLinesWithoutHeader(failedTests)
+    def concatenateLinesToMessages(lines, maxMessageLength = 1000, maxMessageCount = 5) {
+
+        // maxMessageLength = Max number of characters in a message.
+        // Slack has documented limits of ~16kB in a HTTP request and max 40000 chars in a message
+        //  but in practice messages with >2000 chars have failed when using slackSend in Jenkins
+        //  so let's set the limit a bit lower.
+
+        // maxMessageCount = Max number of messages to generate.
+        // Slack is documented to not like too much message spam (plus, it gets unwieldy for users)
+        //  so if there are more lines than can fit into this number of messages,
+        //  remaining lines will be omitted and an 'n lines omitted' message will be included instead.
 
         def messages = []
         def message = ""
 
-        def maxMessageLength = 1000
-        for (line in lines) {
+        for (def i = 0; i < lines.size(); i++) {
+            def line = lines[i]
+
             if ((message.length() > 0) && (message.length() + line.length() >= maxMessageLength)) {
                 messages.add(message)
                 message = ""
+
+                if (messages.size() >= maxMessageCount)
+                {
+                    message = "(${lines.size() - i} lines omitted)\n"
+                    break
+                }
             }
 
             message += "${line}\n"

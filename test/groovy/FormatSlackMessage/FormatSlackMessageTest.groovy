@@ -110,37 +110,78 @@ class FormatSlackMessageTest extends LocalSharedLibraryPipelineTest {
     }
 
     @Test
-    void returnsEmptyMessageListForNoFailedTests() {
-        def failedTests = []
-        binding.setVariable('failedTests', failedTests)
+    void returnsEmptyMessageListForNoLines() {
+        def lines = []
+        binding.setVariable('lines', lines)
+        binding.setVariable('maxMessageLength', 1000)
+        binding.setVariable('maxMessageCount', 5)
         binding.setVariable('messages', null)
-        runScript('test/jenkins/FormatSlackMessage/convertFailedTestsToMessages.jenkins')
+        runScript('test/jenkins/FormatSlackMessage/concatenateLinesToMessages.jenkins')
         def messages = binding.getVariable('messages')
         assertEquals(0, messages.size())
     }
 
     @Test
-    void returnsMultipleMessagesForManyFailedTests() {
-        // Approx. 210 chars per test - 4 tests will fit into each message
-        def failedTests = [new Tuple('test 1 - 0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789', 'http://test_1_url_0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789'),
-            new Tuple('test 2 - 0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789', 'http://test_2_url_0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789'),
-            new Tuple('test 3 - 0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789', 'http://test_3_url_0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789'),
-            new Tuple('test 4 - 0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789', 'http://test_4_url_0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789'),
-            new Tuple('test 5 - 0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789', 'http://test_5_url_0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789'),
-            new Tuple('test 6 - 0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789', 'http://test_6_url_0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789'),
-            new Tuple('test 7 - 0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789', 'http://test_7_url_0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789')]
-        binding.setVariable('failedTests', failedTests)
+    void returnsMultipleMessagesForManyLines() {
+        // Approx. 20 chars per line - 5 lines will fit into each 110-character message
+        def lines = ['line 1 - 0123456789',
+            'line 2 - 0123456789',
+            'line 3 - 0123456789',
+            'line 4 - 0123456789',
+            'line 5 - 0123456789',
+            'line 6 - 0123456789',
+            'line 7 - 0123456789']
+        binding.setVariable('lines', lines)
+        binding.setVariable('maxMessageLength', 110)
+        binding.setVariable('maxMessageCount', 2)
         binding.setVariable('messages', null)
-        runScript('test/jenkins/FormatSlackMessage/convertFailedTestsToMessages.jenkins')
+        runScript('test/jenkins/FormatSlackMessage/concatenateLinesToMessages.jenkins')
         def messages = binding.getVariable('messages')
         assertEquals(2, messages.size())
-        assertTrue(messages[0].contains('test 1'))
-        assertTrue(messages[0].contains('test 2'))
-        assertTrue(messages[0].contains('test 3'))
-        assertTrue(messages[0].contains('test 4'))
-        assertTrue(messages[1].contains('test 5'))
-        assertTrue(messages[1].contains('test 6'))
-        assertTrue(messages[1].contains('test 7'))
+        assertTrue(messages[0].contains('line 1'))
+        assertTrue(messages[0].contains('line 2'))
+        assertTrue(messages[0].contains('line 3'))
+        assertTrue(messages[0].contains('line 4'))
+        assertTrue(messages[0].contains('line 5'))
+        assertTrue(messages[1].contains('line 6'))
+        assertTrue(messages[1].contains('line 7'))
+    }
+
+    @Test
+    void returnsTruncatedMessageListForTooManyLines() {
+        // Approx. 20 chars per line - 5 lines will fit into each 105-character message
+        def lines = ['line 1 - 0123456789',
+            'line 2 - 0123456789',
+            'line 3 - 0123456789',
+            'line 4 - 0123456789',
+            'line 5 - 0123456789',
+            'line 6 - 0123456789',
+            'line 7 - 0123456789',
+            'line 8 - 0123456789',
+            'line 9 - 0123456789',
+            'line 10 - 0123456789',
+            'line 11 - 0123456789',
+            'line 12 - 0123456789',
+            'line 13 - 0123456789']
+        binding.setVariable('lines', lines)
+        binding.setVariable('maxMessageLength', 110)
+        binding.setVariable('maxMessageCount', 2)
+        binding.setVariable('messages', null)
+        runScript('test/jenkins/FormatSlackMessage/concatenateLinesToMessages.jenkins')
+        def messages = binding.getVariable('messages')
+        assertEquals(3, messages.size())
+        assertTrue(messages[0].contains('line 1'))
+        assertTrue(messages[0].contains('line 2'))
+        assertTrue(messages[0].contains('line 3'))
+        assertTrue(messages[0].contains('line 4'))
+        assertTrue(messages[0].contains('line 5'))
+        assertTrue(messages[1].contains('line 6'))
+        assertTrue(messages[1].contains('line 7'))
+        assertTrue(messages[1].contains('line 8'))
+        assertTrue(messages[1].contains('line 9'))
+        assertTrue(messages[1].contains('line 10'))
+        
+        assertEquals('(3 lines omitted)\n', (String)messages[2])
     }
 
     @Test

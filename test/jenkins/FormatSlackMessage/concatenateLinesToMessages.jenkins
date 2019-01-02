@@ -1,0 +1,4 @@
+
+@Library("JenkinsBuildScripts@master") _
+
+messages = new com.falldamagestudio.FormatSlackMessage(this).concatenateLinesToMessages(lines, maxMessageLength, maxMessageCount)

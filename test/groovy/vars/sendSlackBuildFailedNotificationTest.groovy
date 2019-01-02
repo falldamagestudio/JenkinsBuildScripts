@@ -59,12 +59,13 @@ class sendSlackBuildFailedNotificationTest extends LocalSharedLibraryPipelineTes
         binding.setVariable('channel', '#test123')
         binding.setVariable('projectName', 'my-project')
         binding.setVariable('failedStep', 'Tests')
+        binding.setVariable('maxMessageLength', '1')
 
         def slackSendParameters = []
 
         helper.registerAllowedMethod('slackSend', [Map.class], { map ->
             slackSendParameters.add(new Tuple(map.channel, map.color, map.message))
-            return null })
+            return [threadId: 'thread-id'] })
 
         runScript('test/jenkins/vars/sendSlackBuildFailedNotification.jenkins')
 
@@ -74,7 +75,7 @@ class sendSlackBuildFailedNotificationTest extends LocalSharedLibraryPipelineTes
         assertEquals('bad', (String)slackSendParameters[0][1])
         assertEquals('*Build failed in \'Tests\' - my-project - cs:67*\n', (String)slackSendParameters[0][2])
 
-        assertEquals('#test123', (String)slackSendParameters[1][0])
+        assertEquals('thread-id', (String)slackSendParameters[1][0])
         assertEquals('bad', (String)slackSendParameters[1][1])
         assertEquals('''Changes:
                        |>_user1@example.com_ change 1
@@ -84,7 +85,7 @@ class sendSlackBuildFailedNotificationTest extends LocalSharedLibraryPipelineTes
                        |>_user4@example.com_ change 5
                        |'''.stripMargin(), (String)slackSendParameters[1][2])
 
-        assertEquals('#test123', (String)slackSendParameters[2][0])
+        assertEquals('thread-id', (String)slackSendParameters[2][0])
         assertEquals('bad', (String)slackSendParameters[2][1])
         assertEquals('''Failed tests:
                        |<https://my-jenkins-installation.com/job/TestJob/14/testReport/junit/(root)/foo3/AFailingTest/|AFailingTest>

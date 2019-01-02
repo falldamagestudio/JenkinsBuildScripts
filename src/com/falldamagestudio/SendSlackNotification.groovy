@@ -24,4 +24,29 @@ class SendSlackNotification implements Serializable {
                 script.slackSend channel: slackResponse.threadId, color: color, message: messages[i]
         }
     }
+
+    def sendAsSingleMessageWithThreadsIfNecessary(channel, color, messages, maxMessageLength = 1900) {
+
+        if (messages.size() > 0) {
+
+            def firstMessage = messages[0]
+
+            def i
+
+            for (i = 1; i < messages.size(); i++) {
+                if ((firstMessage.length() + messages[i].length()) > maxMessageLength)
+                    break;
+
+                firstMessage += messages[i]
+            }
+
+            def remainingMessages = messages[(i..<messages.size())]
+
+            def newMessages = []
+            newMessages.add(firstMessage)
+            newMessages.addAll(remainingMessages)
+
+            sendAsThreadedMessage(channel, color, newMessages)
+        }
+    }
 }

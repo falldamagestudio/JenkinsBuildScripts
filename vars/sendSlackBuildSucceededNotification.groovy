@@ -6,5 +6,5 @@ def call(channel, projectName) {
     def messages = formatSlackNotification.getSuccessMessages(projectName, scmInfo.getCurrentChangeSetId(), scmInfo.getChangeLogs())
 
     def sendSlackNotification = new com.falldamagestudio.SendSlackNotification(this)
-    sendSlackNotification.sendAsMultipleMessages(channel, 'good', messages)
+    sendSlackNotification.sendAsSingleMessageWithThreadsIfNecessary(channel, 'good', messages)
 }

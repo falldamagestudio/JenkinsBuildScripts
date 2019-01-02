@@ -67,20 +67,17 @@ class createSlackBuildSucceededNotificationTest extends LocalSharedLibraryPipeli
 
         runScript('test/jenkins/vars/sendSlackBuildSucceededNotification.jenkins')
 
-        assertEquals(2, slackSendParameters.size())
+        assertEquals(1, slackSendParameters.size())
 
         assertEquals('#test123', (String)slackSendParameters[0][0])
         assertEquals('good', (String)slackSendParameters[0][1])
-        assertEquals('*Build succeeded - my-project - cs:67*\n', (String)slackSendParameters[0][2])
-
-        assertEquals('#test123', (String)slackSendParameters[1][0])
-        assertEquals('good', (String)slackSendParameters[1][1])
-        assertEquals('''Changes:
+        assertEquals('''*Build succeeded - my-project - cs:67*
+                       |Changes:
                        |>_user1@example.com_ change 1
                        |>_user2@example.com_ change 2
                        |>_user3@example.com_ change 3
                        |>_user1@example.com_ change 4
                        |>_user4@example.com_ change 5
-                       |'''.stripMargin(), (String)slackSendParameters[1][2])
+                       |'''.stripMargin(), (String)slackSendParameters[0][2])
     }
 }

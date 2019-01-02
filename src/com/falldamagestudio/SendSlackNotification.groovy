@@ -18,7 +18,9 @@ class SendSlackNotification implements Serializable {
 
         if (messages.size() > 0)
         {
-            def slackResponse = script.slackSend channel: channel, color: color, message: messages[0]
+            def slackResponse = script.slackSend(channel: channel, color: color, message: messages[0])
+
+            script.echo "slackResponse: ${slackResponse}"
 
             for (def i = 1; i < messages.size(); i++)
                 script.slackSend channel: slackResponse.threadId, color: color, message: messages[i]

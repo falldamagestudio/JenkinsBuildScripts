@@ -58,6 +58,7 @@ class createSlackBuildSucceededNotificationTest extends LocalSharedLibraryPipeli
 
         binding.setVariable('channel', '#test123')
         binding.setVariable('projectName', 'my-project')
+        binding.setVariable('committerToSlackNameLookup', ['user1@example.com' : 'user1nick', 'user2@example.com' : 'user2nick'])
 
         def slackSendParameters = []
 

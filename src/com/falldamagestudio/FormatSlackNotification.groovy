@@ -22,6 +22,23 @@ class FormatSlackNotification implements Serializable {
         return "Available in Steam application ${steamProductName}, branch [${steamBranchName}]"
     }
 
+    def getNotificationLines(committers, committerToSlackNameLookup) {
+
+        def notification = ""
+
+        for (committer in committers) {
+            if (committerToSlackNameLookup.containsKey(committer))
+                notification += " @${committerToSlackNameLookup[committer]}"
+            else
+                notification += " ${committer} (No Slack name given)"
+        }
+
+        if (notification != "")
+            return ["Notify these people:${notification}"]
+        else
+            return []
+    }
+
     def getChangeLogsLines(changeLogs) {
         if (changeLogs.size() > 0) {
             def lines = ["Changes:"]
@@ -97,18 +114,20 @@ class FormatSlackNotification implements Serializable {
         return messages
     }
 
-    def getFailureMessages(projectName, changeSetId, failedStep, changeLogs, failedTests) {
+    def getFailureMessages(projectName, changeSetId, failedStep, committers, committerToSlackNameLookup, changeLogs, failedTests) {
         def lines = []
         lines.addAll([getHeaderLine(projectName, changeSetId, failedStep)])
+        lines.addAll(getNotificationLines(committers, committerToSlackNameLookup))
         lines.addAll(getChangeLogsLines(changeLogs))
         lines.addAll(getFailedTestsLines(failedTests))
         def messages = concatenateLinesToMessages(lines)
         return messages
     }
 
-    def getSuccessMessages(projectName, changeSetId, changeLogs) {
+    def getSuccessMessages(projectName, changeSetId, committers, committerToSlackNameLookup, changeLogs) {
         def lines = []
         lines.addAll([getHeaderLine(projectName, changeSetId, null)])
+        lines.addAll(getNotificationLines(committers, committerToSlackNameLookup))
         lines.addAll(getChangeLogsLines(changeLogs))
         def messages = concatenateLinesToMessages(lines)
         return messages

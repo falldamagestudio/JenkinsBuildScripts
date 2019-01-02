@@ -189,6 +189,8 @@ class FormatSlackNotificationTest extends LocalSharedLibraryPipelineTest {
         binding.setVariable('projectName', 'my-project')
         binding.setVariable('changeSetId', '12345')
         binding.setVariable('failedStep', 'Tests')
+        binding.setVariable('committers', ['user1@example.com', 'user2@example.com'])
+        binding.setVariable('committerToSlackNameLookup', ['user1@example.com' : 'user1nick', 'user2@example.com' : 'user2nick'])
         def changeLogs = [new MockChangeLogSetEntry(null, 'user1@example.com', '1234', 'change 1'),
             new MockChangeLogSetEntry(null, 'user2@example.com', '1235', 'change 2')]
         binding.setVariable('changeLogs', changeLogs)
@@ -202,6 +204,7 @@ class FormatSlackNotificationTest extends LocalSharedLibraryPipelineTest {
 
         assertEquals(1, messages.size())
         assertEquals('''*Build failed in \'Tests\' - my-project - cs:12345*
+                       |Notify these people: @user1nick @user2nick
                        |Changes:
                        |>_user1@example.com_ change 1
                        |>_user2@example.com_ change 2
@@ -218,6 +221,8 @@ class FormatSlackNotificationTest extends LocalSharedLibraryPipelineTest {
         binding.setVariable('changeSetId', '12345')
         def changeLogs = [new MockChangeLogSetEntry(null, 'user1@example.com', '1234', 'change 1'),
             new MockChangeLogSetEntry(null, 'user2@example.com', '1235', 'change 2')]
+        binding.setVariable('committers', ['user1@example.com', 'user2@example.com'])
+        binding.setVariable('committerToSlackNameLookup', ['user1@example.com' : 'user1nick', 'user2@example.com' : 'user2nick'])
         binding.setVariable('changeLogs', changeLogs)
         binding.setVariable('messages', null)
         runScript('test/jenkins/FormatSlackNotification/getSuccessMessages.jenkins')
@@ -225,6 +230,7 @@ class FormatSlackNotificationTest extends LocalSharedLibraryPipelineTest {
 
         assertEquals(1, messages.size())
         assertEquals('''*Build succeeded - my-project - cs:12345*
+                       |Notify these people: @user1nick @user2nick
                        |Changes:
                        |>_user1@example.com_ change 1
                        |>_user2@example.com_ change 2

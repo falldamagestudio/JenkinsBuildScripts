@@ -77,6 +77,8 @@ class FormatSlackNotification implements Serializable {
         for (def i = 0; i < lines.size(); i++) {
             def line = lines[i]
 
+            script.echo "line.length(): ${line.length()}"
+
             if ((message.length() > 0) && (message.length() + line.length() >= maxMessageLength)) {
                 messages.add(message)
                 message = ""

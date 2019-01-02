@@ -7,7 +7,7 @@ import org.junit.Test
 import static groovy.test.GroovyAssert.*
 import static org.mockito.Mockito.*
 
-class createSlackBuildSucceededMessageTest extends LocalSharedLibraryPipelineTest {
+class createSlackBuildSucceededNotificationTest extends LocalSharedLibraryPipelineTest {
 
     void registerCurrentBuildWithChangeSetsAndTestResults(changeSets, testResultsXmlFile) {
 
@@ -30,7 +30,7 @@ class createSlackBuildSucceededMessageTest extends LocalSharedLibraryPipelineTes
     }
 
     @Test
-    void returnsWellFormedMessage() {
+    void sendsWellFormedMessages() {
 
         List<MockChangeLogSetEntry> changeSets1 = new ArrayList<MockChangeLogSetEntry>();
         changeSets1.add(new MockChangeLogSetEntry(new ArrayList<String>(), "user1@example.com", "1234", "change 1"));
@@ -56,19 +56,31 @@ class createSlackBuildSucceededMessageTest extends LocalSharedLibraryPipelineTes
         def environment = [SOURCE_DIR : 'source_dir']
         binding.setVariable('env', environment)
 
+        binding.setVariable('channel', '#test123')
         binding.setVariable('projectName', 'my-project')
-        binding.setVariable('message', null)
-        runScript('test/jenkins/vars/createSlackBuildSucceededMessage.jenkins')
-        def message = binding.getVariable('message')
 
-        assertEquals('''*Build succeeded - my-project - cs:67*
-                       |Changes:
+        def slackSendParameters = []
+
+        helper.registerAllowedMethod('slackSend', [Map.class], { map ->
+            slackSendParameters.add(new Tuple(map.channel, map.color, map.message))
+            return null })
+
+        runScript('test/jenkins/vars/sendSlackBuildSucceededNotification.jenkins')
+
+        assertEquals(2, slackSendParameters.size())
+
+        assertEquals('#test123', (String)slackSendParameters[0][0])
+        assertEquals('good', (String)slackSendParameters[0][1])
+        assertEquals('*Build succeeded - my-project - cs:67*\n', (String)slackSendParameters[0][2])
+
+        assertEquals('#test123', (String)slackSendParameters[1][0])
+        assertEquals('good', (String)slackSendParameters[1][1])
+        assertEquals('''Changes:
                        |>_user1@example.com_ change 1
                        |>_user2@example.com_ change 2
                        |>_user3@example.com_ change 3
                        |>_user1@example.com_ change 4
                        |>_user4@example.com_ change 5
-                       |'''.stripMargin(), (String)message)
-
+                       |'''.stripMargin(), (String)slackSendParameters[1][2])
     }
 }

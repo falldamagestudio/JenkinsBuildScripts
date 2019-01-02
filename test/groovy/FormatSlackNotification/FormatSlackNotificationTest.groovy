@@ -220,15 +220,16 @@ class FormatSlackNotificationTest extends LocalSharedLibraryPipelineTest {
         def changeLogs = [new MockChangeLogSetEntry(null, 'user1@example.com', '1234', 'change 1'),
             new MockChangeLogSetEntry(null, 'user2@example.com', '1235', 'change 2')]
         binding.setVariable('changeLogs', changeLogs)
-        binding.setVariable('message', null)
-        runScript('test/jenkins/FormatSlackNotification/getSuccessMessage.jenkins')
-        def message = binding.getVariable('message')
+        binding.setVariable('messages', null)
+        runScript('test/jenkins/FormatSlackNotification/getSuccessMessages.jenkins')
+        def messages = binding.getVariable('messages')
 
-        assertEquals('''*Build succeeded - my-project - cs:12345*
-                       |Changes:
+        assertEquals(2, messages.size())
+        assertEquals('*Build succeeded - my-project - cs:12345*\n', (String)messages[0])
+        assertEquals('''Changes:
                        |>_user1@example.com_ change 1
                        |>_user2@example.com_ change 2
-                       |'''.stripMargin(), (String)message)
+                       |'''.stripMargin(), (String)messages[1])
     }
 
     @Test

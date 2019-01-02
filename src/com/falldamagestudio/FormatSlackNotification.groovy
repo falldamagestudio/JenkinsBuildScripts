@@ -105,11 +105,11 @@ class FormatSlackNotification implements Serializable {
         return messages
     }
 
-    def getSuccessMessage(projectName, changeSetId, changeLogs) {
-        def lines = []
-        lines.addAll(getHeaderLine(projectName, changeSetId, null))
-        lines.addAll(getChangeLogsLines(changeLogs))
-        return concatenateLinesToMessage(lines)
+    def getSuccessMessages(projectName, changeSetId, changeLogs) {
+        def messages = []
+        messages.addAll(concatenateLinesToMessages([getHeaderLine(projectName, changeSetId, null)]))
+        messages.addAll(concatenateLinesToMessages(getChangeLogsLines(changeLogs)))
+        return messages
     }
 
     def getSuccessMessage_gDrive(projectName, changeSetId, changeLogs, bucketName, fileName) {

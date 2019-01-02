@@ -59,7 +59,6 @@ class sendSlackBuildFailedNotificationTest extends LocalSharedLibraryPipelineTes
         binding.setVariable('channel', '#test123')
         binding.setVariable('projectName', 'my-project')
         binding.setVariable('failedStep', 'Tests')
-        binding.setVariable('maxMessageLength', '1')
 
         def slackSendParameters = []
 
@@ -69,28 +68,21 @@ class sendSlackBuildFailedNotificationTest extends LocalSharedLibraryPipelineTes
 
         runScript('test/jenkins/vars/sendSlackBuildFailedNotification.jenkins')
 
-        assertEquals(3, slackSendParameters.size())
+        assertEquals(1, slackSendParameters.size())
 
         assertEquals('#test123', (String)slackSendParameters[0][0])
         assertEquals('bad', (String)slackSendParameters[0][1])
-        assertEquals('*Build failed in \'Tests\' - my-project - cs:67*\n', (String)slackSendParameters[0][2])
-
-        assertEquals('thread-id', (String)slackSendParameters[1][0])
-        assertEquals('bad', (String)slackSendParameters[1][1])
-        assertEquals('''Changes:
+        assertEquals('''*Build failed in \'Tests\' - my-project - cs:67*
+                       |Changes:
                        |>_user1@example.com_ change 1
                        |>_user2@example.com_ change 2
                        |>_user3@example.com_ change 3
                        |>_user1@example.com_ change 4
                        |>_user4@example.com_ change 5
-                       |'''.stripMargin(), (String)slackSendParameters[1][2])
-
-        assertEquals('thread-id', (String)slackSendParameters[2][0])
-        assertEquals('bad', (String)slackSendParameters[2][1])
-        assertEquals('''Failed tests:
+                       |Failed tests:
                        |<https://my-jenkins-installation.com/job/TestJob/14/testReport/junit/(root)/foo3/AFailingTest/|AFailingTest>
                        |<https://my-jenkins-installation.com/job/TestJob/14/testReport/junit/(root)/foo4/ASecondFailingTest/|ASecondFailingTest>
-                       |'''.stripMargin(), (String)slackSendParameters[2][2])
+                       |'''.stripMargin(), (String)slackSendParameters[0][2])
 
     }
 }

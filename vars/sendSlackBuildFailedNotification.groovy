@@ -9,5 +9,5 @@ def call(channel, projectName, failedStep, maxMessageLength = 1900) {
     def messages = formatSlackNotification.getFailureMessages(projectName, scmInfo.getCurrentChangeSetId(), failedStep, scmInfo.getChangeLogs(), failedTests)
 
     def sendSlackNotification = new com.falldamagestudio.SendSlackNotification(this)
-    sendSlackNotification.sendAsSingleMessageWithThreadsIfNecessary(channel, 'bad', messages, maxMessageLength)
+    sendSlackNotification.sendAsMultipleMessages(channel, 'bad', messages)
 }

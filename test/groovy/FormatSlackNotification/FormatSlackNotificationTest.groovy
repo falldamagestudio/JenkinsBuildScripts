@@ -200,17 +200,16 @@ class FormatSlackNotificationTest extends LocalSharedLibraryPipelineTest {
         runScript('test/jenkins/FormatSlackNotification/getFailureMessages.jenkins')
         def messages = binding.getVariable('messages')
 
-        assertEquals(3, messages.size())
-        assertEquals('*Build failed in \'Tests\' - my-project - cs:12345*\n', (String)messages[0])
-        assertEquals('''Changes:
+        assertEquals(1, messages.size())
+        assertEquals('''*Build failed in \'Tests\' - my-project - cs:12345*
+                       |Changes:
                        |>_user1@example.com_ change 1
                        |>_user2@example.com_ change 2
-                       |'''.stripMargin(), (String)messages[1])
-        assertEquals('''Failed tests:
+                       |Failed tests:
                        |<http://test_1_url|test 1>
                        |<http://test_2_url|test 2>
                        |<http://test_3_url|test 3>
-                       |'''.stripMargin(), (String)messages[2])
+                       |'''.stripMargin(), (String)messages[0])
     }
 
    @Test
@@ -224,12 +223,12 @@ class FormatSlackNotificationTest extends LocalSharedLibraryPipelineTest {
         runScript('test/jenkins/FormatSlackNotification/getSuccessMessages.jenkins')
         def messages = binding.getVariable('messages')
 
-        assertEquals(2, messages.size())
-        assertEquals('*Build succeeded - my-project - cs:12345*\n', (String)messages[0])
-        assertEquals('''Changes:
+        assertEquals(1, messages.size())
+        assertEquals('''*Build succeeded - my-project - cs:12345*
+                       |Changes:
                        |>_user1@example.com_ change 1
                        |>_user2@example.com_ change 2
-                       |'''.stripMargin(), (String)messages[1])
+                       |'''.stripMargin(), (String)messages[0])
     }
 
     @Test

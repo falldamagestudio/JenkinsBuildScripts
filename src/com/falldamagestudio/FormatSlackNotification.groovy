@@ -48,18 +48,6 @@ class FormatSlackNotification implements Serializable {
             return []
     }
 
-    def getFailedTestsLinesWithoutHeader(failedTests) {
-        if (failedTests.size() > 0) {
-            def lines = []
-            for (testCase in failedTests) {
-                def line = "<${testCase.url}|${testCase.name}>"
-                lines.add(line)
-            }
-            return lines
-        } else
-            return []
-    }
-
     def concatenateLinesToMessage(lines) {
         def message = ""
         for (line in lines) {

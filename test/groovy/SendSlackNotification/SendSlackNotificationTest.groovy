@@ -2,7 +2,7 @@ import org.junit.Test
 
 import static groovy.test.GroovyAssert.*
 
-class SendSlackMessageTest extends LocalSharedLibraryPipelineTest {
+class SendSlackNotificationTest extends LocalSharedLibraryPipelineTest {
 
     @Test
     void sendAsMultipleMessagesSendsIndividualMessages() {
@@ -17,7 +17,7 @@ class SendSlackMessageTest extends LocalSharedLibraryPipelineTest {
         binding.setVariable('channel', '#test123')
         binding.setVariable('color', 'good')
         binding.setVariable('messages', ['line 1\n', 'line 2\n', 'line 3\n'])
-        runScript('test/jenkins/SendSlackMessage/sendAsMultipleMessages.jenkins')
+        runScript('test/jenkins/SendSlackNotification/sendAsMultipleMessages.jenkins')
 
         assertEquals(3, slackSendParameters.size())
 
@@ -47,7 +47,7 @@ class SendSlackMessageTest extends LocalSharedLibraryPipelineTest {
         binding.setVariable('channel', '#test123')
         binding.setVariable('color', 'good')
         binding.setVariable('messages', ['line 1\n', 'line 2\n', 'line 3\n'])
-        runScript('test/jenkins/SendSlackMessage/sendAsThreadedMessage.jenkins')
+        runScript('test/jenkins/SendSlackNotification/sendAsThreadedMessage.jenkins')
 
         assertEquals(3, slackSendParameters.size())
 

@@ -7,7 +7,7 @@ import org.junit.Test
 import static groovy.test.GroovyAssert.*
 import static org.mockito.Mockito.*
 
-class sendSlackBuildFailedMessageTest extends LocalSharedLibraryPipelineTest {
+class sendSlackBuildFailedNotificationTest extends LocalSharedLibraryPipelineTest {
 
     void registerCurrentBuildWithChangeSetsAndTestResults(changeSets, testResultsXmlFile) {
 
@@ -30,7 +30,7 @@ class sendSlackBuildFailedMessageTest extends LocalSharedLibraryPipelineTest {
     }
 
     @Test
-    void sendsWellFormedMessage() {
+    void sendsWellFormedMessages() {
 
         List<MockChangeLogSetEntry> changeSets1 = new ArrayList<MockChangeLogSetEntry>();
         changeSets1.add(new MockChangeLogSetEntry(new ArrayList<String>(), "user1@example.com", "1234", "change 1"));
@@ -66,7 +66,7 @@ class sendSlackBuildFailedMessageTest extends LocalSharedLibraryPipelineTest {
             slackSendParameters.add(new Tuple(map.channel, map.color, map.message))
             return null })
 
-        runScript('test/jenkins/vars/sendSlackBuildFailedMessage.jenkins')
+        runScript('test/jenkins/vars/sendSlackBuildFailedNotification.jenkins')
 
         assertEquals(3, slackSendParameters.size())
 

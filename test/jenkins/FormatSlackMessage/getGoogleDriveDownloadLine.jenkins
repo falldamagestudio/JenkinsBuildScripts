@@ -1,4 +1,0 @@
-
-@Library("JenkinsBuildScripts@master") _
-
-line = new com.falldamagestudio.FormatSlackMessage(this).getGoogleDriveDownloadLine(bucketName, fileName)

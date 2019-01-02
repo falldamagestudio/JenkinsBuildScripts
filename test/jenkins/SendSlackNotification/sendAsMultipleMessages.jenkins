@@ -1,0 +1,4 @@
+
+@Library("JenkinsBuildScripts@master") _
+
+messages = new com.falldamagestudio.SendSlackNotification(this).sendAsMultipleMessages(channel, color, messages)

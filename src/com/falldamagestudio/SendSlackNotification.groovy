@@ -1,10 +1,10 @@
 package com.falldamagestudio
 
-class SendSlackMessage implements Serializable {
+class SendSlackNotification implements Serializable {
 
     def script
 
-    SendSlackMessage(script) {
+    SendSlackNotification(script) {
         this.script = script
     }
 

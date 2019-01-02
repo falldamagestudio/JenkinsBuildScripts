@@ -1,10 +1,10 @@
 package com.falldamagestudio
 
-class FormatSlackMessage implements Serializable {
+class FormatSlackNotification implements Serializable {
 
     def script
 
-    FormatSlackMessage(script) {
+    FormatSlackNotification(script) {
         this.script = script
     }
 

@@ -2,7 +2,7 @@ import org.junit.Test
 
 import static groovy.test.GroovyAssert.*
 
-class FormatSlackMessageTest extends LocalSharedLibraryPipelineTest {
+class FormatSlackNotificationTest extends LocalSharedLibraryPipelineTest {
 
     @Test
     void returnsSuccessfulHeaderLine() {
@@ -10,7 +10,7 @@ class FormatSlackMessageTest extends LocalSharedLibraryPipelineTest {
         binding.setVariable('projectName', 'TestProject')
         binding.setVariable('changeSetId', '12345')
         binding.setVariable('line', null)
-        runScript('test/jenkins/FormatSlackMessage/getHeaderLine.jenkins')
+        runScript('test/jenkins/FormatSlackNotification/getHeaderLine.jenkins')
         def line = binding.getVariable('line')
         assertEquals('*Build succeeded - TestProject - cs:12345*', (String)line)
     }
@@ -21,7 +21,7 @@ class FormatSlackMessageTest extends LocalSharedLibraryPipelineTest {
         binding.setVariable('projectName', 'TestProject')
         binding.setVariable('changeSetId', '12345')
         binding.setVariable('line', null)
-        runScript('test/jenkins/FormatSlackMessage/getHeaderLine.jenkins')
+        runScript('test/jenkins/FormatSlackNotification/getHeaderLine.jenkins')
         def line = binding.getVariable('line')
         assertEquals('*Build failed in \'TestStep\' - TestProject - cs:12345*', (String)line)
     }
@@ -31,7 +31,7 @@ class FormatSlackMessageTest extends LocalSharedLibraryPipelineTest {
         binding.setVariable('bucketName', 'my-bucket')
         binding.setVariable('fileName', 'my-filename')
         binding.setVariable('line', null)
-        runScript('test/jenkins/FormatSlackMessage/getGoogleDriveDownloadLine.jenkins')
+        runScript('test/jenkins/FormatSlackNotification/getGoogleDriveDownloadLine.jenkins')
         def line = binding.getVariable('line')
         assertEquals('<https://storage.cloud.google.com/my-bucket/my-filename|Download build>', (String)line)
     }
@@ -41,7 +41,7 @@ class FormatSlackMessageTest extends LocalSharedLibraryPipelineTest {
         binding.setVariable('productName', 'my-product')
         binding.setVariable('branchName', 'my-branch')
         binding.setVariable('line', null)
-        runScript('test/jenkins/FormatSlackMessage/getSteamBuildLine.jenkins')
+        runScript('test/jenkins/FormatSlackNotification/getSteamBuildLine.jenkins')
         def line = binding.getVariable('line')
         assertEquals('Available in Steam application my-product, branch [my-branch]', (String)line)
     }
@@ -51,7 +51,7 @@ class FormatSlackMessageTest extends LocalSharedLibraryPipelineTest {
         def changeLogs = []
         binding.setVariable('changeLogs', changeLogs)
         binding.setVariable('lines', null)
-        runScript('test/jenkins/FormatSlackMessage/getChangeLogsLines.jenkins')
+        runScript('test/jenkins/FormatSlackNotification/getChangeLogsLines.jenkins')
         def lines = binding.getVariable('lines')
         assertEquals(0, lines.size())
     }
@@ -62,7 +62,7 @@ class FormatSlackMessageTest extends LocalSharedLibraryPipelineTest {
             new MockChangeLogSetEntry(null, 'user2@example.com', '1235', 'change 2')]
         binding.setVariable('changeLogs', changeLogs)
         binding.setVariable('lines', null)
-        runScript('test/jenkins/FormatSlackMessage/getChangeLogsLines.jenkins')
+        runScript('test/jenkins/FormatSlackNotification/getChangeLogsLines.jenkins')
         def lines = binding.getVariable('lines')
         assertEquals(3, lines.size())
         assertEquals('Changes:', (String)lines[0])
@@ -75,7 +75,7 @@ class FormatSlackMessageTest extends LocalSharedLibraryPipelineTest {
         def failedTests = []
         binding.setVariable('failedTests', failedTests)
         binding.setVariable('lines', null)
-        runScript('test/jenkins/FormatSlackMessage/getFailedTestsLines.jenkins')
+        runScript('test/jenkins/FormatSlackNotification/getFailedTestsLines.jenkins')
         def lines = binding.getVariable('lines')
         assertEquals(0, lines.size())
     }
@@ -87,7 +87,7 @@ class FormatSlackMessageTest extends LocalSharedLibraryPipelineTest {
             new Tuple('test 3', 'http://test_3_url')]
         binding.setVariable('failedTests', failedTests)
         binding.setVariable('lines', null)
-        runScript('test/jenkins/FormatSlackMessage/getFailedTestsLines.jenkins')
+        runScript('test/jenkins/FormatSlackNotification/getFailedTestsLines.jenkins')
         def lines = binding.getVariable('lines')
         assertEquals(4, lines.size())
         assertEquals('Failed tests:', (String)lines[0])
@@ -101,7 +101,7 @@ class FormatSlackMessageTest extends LocalSharedLibraryPipelineTest {
         def lines = ['line 1', 'line 2', 'line 3']
         binding.setVariable('lines', lines)
         binding.setVariable('message', null)
-        runScript('test/jenkins/FormatSlackMessage/concatenateLinesToMessage.jenkins')
+        runScript('test/jenkins/FormatSlackNotification/concatenateLinesToMessage.jenkins')
         def message = binding.getVariable('message')
         assertEquals('''line 1
                        |line 2
@@ -116,7 +116,7 @@ class FormatSlackMessageTest extends LocalSharedLibraryPipelineTest {
         binding.setVariable('maxMessageLength', 1000)
         binding.setVariable('maxMessageCount', 5)
         binding.setVariable('messages', null)
-        runScript('test/jenkins/FormatSlackMessage/concatenateLinesToMessages.jenkins')
+        runScript('test/jenkins/FormatSlackNotification/concatenateLinesToMessages.jenkins')
         def messages = binding.getVariable('messages')
         assertEquals(0, messages.size())
     }
@@ -135,7 +135,7 @@ class FormatSlackMessageTest extends LocalSharedLibraryPipelineTest {
         binding.setVariable('maxMessageLength', 110)
         binding.setVariable('maxMessageCount', 2)
         binding.setVariable('messages', null)
-        runScript('test/jenkins/FormatSlackMessage/concatenateLinesToMessages.jenkins')
+        runScript('test/jenkins/FormatSlackNotification/concatenateLinesToMessages.jenkins')
         def messages = binding.getVariable('messages')
         assertEquals(2, messages.size())
         assertTrue(messages[0].contains('line 1'))
@@ -167,7 +167,7 @@ class FormatSlackMessageTest extends LocalSharedLibraryPipelineTest {
         binding.setVariable('maxMessageLength', 110)
         binding.setVariable('maxMessageCount', 2)
         binding.setVariable('messages', null)
-        runScript('test/jenkins/FormatSlackMessage/concatenateLinesToMessages.jenkins')
+        runScript('test/jenkins/FormatSlackNotification/concatenateLinesToMessages.jenkins')
         def messages = binding.getVariable('messages')
         assertEquals(3, messages.size())
         assertTrue(messages[0].contains('line 1'))
@@ -197,7 +197,7 @@ class FormatSlackMessageTest extends LocalSharedLibraryPipelineTest {
             new Tuple('test 3', 'http://test_3_url')]
         binding.setVariable('failedTests', failedTests)
         binding.setVariable('messages', null)
-        runScript('test/jenkins/FormatSlackMessage/getFailureMessages.jenkins')
+        runScript('test/jenkins/FormatSlackNotification/getFailureMessages.jenkins')
         def messages = binding.getVariable('messages')
 
         assertEquals(3, messages.size())
@@ -221,7 +221,7 @@ class FormatSlackMessageTest extends LocalSharedLibraryPipelineTest {
             new MockChangeLogSetEntry(null, 'user2@example.com', '1235', 'change 2')]
         binding.setVariable('changeLogs', changeLogs)
         binding.setVariable('message', null)
-        runScript('test/jenkins/FormatSlackMessage/getSuccessMessage.jenkins')
+        runScript('test/jenkins/FormatSlackNotification/getSuccessMessage.jenkins')
         def message = binding.getVariable('message')
 
         assertEquals('''*Build succeeded - my-project - cs:12345*
@@ -241,7 +241,7 @@ class FormatSlackMessageTest extends LocalSharedLibraryPipelineTest {
         binding.setVariable('bucketName', 'my-bucket')
         binding.setVariable('fileName', 'my-filename')
         binding.setVariable('message', null)
-        runScript('test/jenkins/FormatSlackMessage/getSuccessMessage_gDrive.jenkins')
+        runScript('test/jenkins/FormatSlackNotification/getSuccessMessage_gDrive.jenkins')
         def message = binding.getVariable('message')
 
         assertEquals('''*Build succeeded - my-project - cs:12345*
@@ -262,7 +262,7 @@ class FormatSlackMessageTest extends LocalSharedLibraryPipelineTest {
         binding.setVariable('steamProductName', 'my-product')
         binding.setVariable('steamBranchName', 'my-branch')
         binding.setVariable('message', null)
-        runScript('test/jenkins/FormatSlackMessage/getSuccessMessage_steam.jenkins')
+        runScript('test/jenkins/FormatSlackNotification/getSuccessMessage_steam.jenkins')
         def message = binding.getVariable('message')
 
         assertEquals('''*Build succeeded - my-project - cs:12345*

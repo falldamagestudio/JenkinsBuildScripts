@@ -59,7 +59,7 @@ class FormatSlackNotification implements Serializable {
         return message
     }
 
-    def concatenateLinesToMessages(lines, maxMessageLength = 1000, maxMessageCount = 5) {
+    def concatenateLinesToMessages(lines, maxMessageLength = 1900, maxMessageCount = 5) {
 
         // maxMessageLength = Max number of characters in a message.
         // Slack has documented limits of ~16kB in a HTTP request and max 40000 chars in a message

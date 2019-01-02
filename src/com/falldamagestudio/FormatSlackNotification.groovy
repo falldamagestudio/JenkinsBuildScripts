@@ -133,19 +133,23 @@ class FormatSlackNotification implements Serializable {
         return messages
     }
 
-    def getSuccessMessage_gDrive(projectName, changeSetId, changeLogs, bucketName, fileName) {
+    def getSuccessMessages_gDrive(projectName, changeSetId, committers, committerToSlackNameLookup, bucketName, fileName, changeLogs) {
         def lines = []
-        lines.addAll(getHeaderLine(projectName, changeSetId, null))
-        lines.addAll(getGoogleDriveDownloadLine(bucketName, fileName))
+        lines.addAll([getHeaderLine(projectName, changeSetId, null)])
+        lines.addAll([getGoogleDriveDownloadLine(bucketName, fileName)])
+        lines.addAll(getNotificationLines(committers, committerToSlackNameLookup))
         lines.addAll(getChangeLogsLines(changeLogs))
-        return concatenateLinesToMessage(lines)
+        def messages = concatenateLinesToMessages(lines)
+        return messages
     }
 
-    def getSuccessMessage_steam(projectName, changeSetId, changeLogs, steamProductName, steamBranchName) {
+    def getSuccessMessages_steam(projectName, changeSetId, committers, committerToSlackNameLookup, steamProductName, steamBranchName, changeLogs) {
         def lines = []
-        lines.addAll(getHeaderLine(projectName, changeSetId, null))
-        lines.addAll(getSteamBuildLine(steamProductName, steamBranchName))
+        lines.addAll([getHeaderLine(projectName, changeSetId, null)])
+        lines.addAll([getSteamBuildLine(steamProductName, steamBranchName)])
+        lines.addAll(getNotificationLines(committers, committerToSlackNameLookup))
         lines.addAll(getChangeLogsLines(changeLogs))
-        return concatenateLinesToMessage(lines)
+        def messages = concatenateLinesToMessages(lines)
+        return messages
     }
 }

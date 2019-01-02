@@ -1,0 +1,4 @@
+
+@Library("JenkinsBuildScripts@master") _
+
+messages = new com.falldamagestudio.FormatSlackNotification(this).getSuccessMessages_steam(projectName, changeSetId, committers, committerToSlackNameLookup, steamProductName, steamBranchName, changeLogs)

@@ -35,37 +35,7 @@ class SCMInfo implements Serializable {
 
     def getCurrentChangeSetId()
     {
-        if (script.isUnix()) {
-
-            def cmResult = script.sh script: "cm status --nochanges ${script.env.SOURCE_DIR}", returnStdout: true
-
-            // Result will be a multiline string like this:
-            //      cs:67@rep:PongSP@repserver:<org>@Cloud
-
-            // Extract the number '67' from the above multiline string
-            def cmResultLines = cmResult.split('\n')
-            def changeSetId = cmResultLines[0].tokenize(':@')[1]
-            
-            return changeSetId
-
-        } else {
-
-            def cmResult = script.bat script: "cm status --nochanges ${script.env.SOURCE_DIR}", returnStdout: true
-
-            // Result will be a multiline string like this:
-            //
-            //		<blank line>
-            //      C:\Jenkins\workspace\PongSP-Windows>cm status --nochanges C:\Jenkins\workspace\PongSP-Windows/PongSP 
-            //      cs:67@rep:PongSP@repserver:<org>@Cloud
-
-            // Extract the number '67' from the above multiline string
-            def cmResultLines = cmResult.split('\n')
-            assert 3 == cmResultLines.size()
-            def changeSetId = cmResultLines[2].tokenize(':@')[1]
-            
-            return changeSetId
-        }
-
+		return script.env.PLASTICSCM_CHANGESET_ID
     }
 
     def getAllCommittersSinceLastSuccessfulBuild(firstBuildToCheck) {

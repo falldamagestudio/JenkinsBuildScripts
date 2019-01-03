@@ -47,13 +47,7 @@ class createSlackBuildSucceededNotificationTest_gDrive extends LocalSharedLibrar
 
         registerCurrentBuildWithChangeSetsAndTestResults(changes, "test/resources/junit-example-results/two-successful.xml")
 
-        helper.registerAllowedMethod('bat', [LinkedHashMap], { return '''
-                                                                        | C:\\Jenkins\\workspace\\PongSP-Windows>cm status --nochanges C:\\Jenkins\\workspace\\PongSP-Windows/PongSP 
-                                                                        | cs:67@rep:PongSP@repserver:<org>@Cloud'''.stripMargin() })
-
-        helper.registerAllowedMethod('isUnix', [], { return false })
-
-        def environment = [SOURCE_DIR : 'source_dir']
+        def environment = [PLASTICSCM_CHANGESET_ID : '67']
         binding.setVariable('env', environment)
 
         binding.setVariable('channel', '#test123')

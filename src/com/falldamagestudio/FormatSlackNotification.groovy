@@ -43,9 +43,9 @@ class FormatSlackNotification implements Serializable {
         if (changeLogs.size() > 0) {
             def lines = ["Changes:"]
             for (entry in changeLogs) {
-                def user = entry.user.toString()
+                def userId = entry.author.id.toString()
                 def comment = entry.msg.toString()
-                def line = ">_" + user + "_ " + comment.replace("\n", ";")
+                def line = ">_" + userId + "_ " + comment.replace("\n", ";")
                 lines.add(line)
             }
             return lines

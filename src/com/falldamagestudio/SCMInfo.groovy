@@ -50,7 +50,7 @@ class SCMInfo implements Serializable {
 
             for (changeSet in build.changeSets) {
                 for (entry in changeSet) {
-                    committers.add(entry.user)
+                    committers.add(entry.author.id)
                 }
             }
 

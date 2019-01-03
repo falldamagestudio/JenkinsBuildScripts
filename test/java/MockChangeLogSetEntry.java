@@ -5,14 +5,14 @@ import java.util.Collection;
 public class MockChangeLogSetEntry extends ChangeLogSet.Entry {
 
     private Collection<String> affectedPaths;
-    private String user;
+    private User author;
     private String commitId;
     private String msg;
 
-    public MockChangeLogSetEntry(Collection<String> affectedPaths, String user, String commitId, String msg)
+    public MockChangeLogSetEntry(Collection<String> affectedPaths, String userId, String commitId, String msg)
     {
         this.affectedPaths = affectedPaths;
-        this.user = user;
+        this.author = MockUserFactory.Create(userId);
         this.commitId = commitId;
         this.msg = msg;
     }
@@ -22,7 +22,7 @@ public class MockChangeLogSetEntry extends ChangeLogSet.Entry {
     }
 
     @Override public User getAuthor() {
-        throw new java.lang.UnsupportedOperationException();
+        return author;
     }
 
     @Override public String getCommitId() {
@@ -35,10 +35,5 @@ public class MockChangeLogSetEntry extends ChangeLogSet.Entry {
 
     @Override public long getTimestamp() {
         throw new java.lang.UnsupportedOperationException();
-    }
-
-    // Get Plastic-specific username
-    public String getUser() {
-        return user;
     }
 }

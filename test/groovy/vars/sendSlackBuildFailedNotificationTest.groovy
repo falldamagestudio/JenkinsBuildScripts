@@ -68,7 +68,7 @@ class sendSlackBuildFailedNotificationTest extends LocalSharedLibraryPipelineTes
         assertEquals('#test123', (String)slackSendParameters[0][0])
         assertEquals('bad', (String)slackSendParameters[0][1])
         assertEquals('''*Build failed in \'Tests\' - my-project - cs:67*
-                       |Notify these people: user4@example.com (No Slack name given) user3@example.com (No Slack name given) @user2nick @user1nick
+                       |People to notify: user4@example.com (No Slack name given) user3@example.com (No Slack name given) @user2nick @user1nick
                        |Changes:
                        |>_user1@example.com_ change 1
                        |>_user2@example.com_ change 2

@@ -34,7 +34,7 @@ class FormatSlackNotification implements Serializable {
         }
 
         if (notification != "")
-            return ["Notify these people:${notification}"]
+            return ["People to notify:${notification}"]
         else
             return []
     }

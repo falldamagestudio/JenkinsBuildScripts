@@ -204,7 +204,7 @@ class FormatSlackNotificationTest extends LocalSharedLibraryPipelineTest {
 
         assertEquals(1, messages.size())
         assertEquals('''*Build failed in \'Tests\' - my-project - cs:12345*
-                       |Notify these people: @user1nick @user2nick
+                       |People to notify: @user1nick @user2nick
                        |Changes:
                        |>_user1@example.com_ change 1
                        |>_user2@example.com_ change 2
@@ -230,7 +230,7 @@ class FormatSlackNotificationTest extends LocalSharedLibraryPipelineTest {
 
         assertEquals(1, messages.size())
         assertEquals('''*Build succeeded - my-project - cs:12345*
-                       |Notify these people: @user1nick @user2nick
+                       |People to notify: @user1nick @user2nick
                        |Changes:
                        |>_user1@example.com_ change 1
                        |>_user2@example.com_ change 2
@@ -255,7 +255,7 @@ class FormatSlackNotificationTest extends LocalSharedLibraryPipelineTest {
         assertEquals(1, messages.size())
         assertEquals('''*Build succeeded - my-project - cs:12345*
                        |<https://storage.cloud.google.com/my-bucket/my-filename|Download build>
-                       |Notify these people: @user1nick @user2nick
+                       |People to notify: @user1nick @user2nick
                        |Changes:
                        |>_user1@example.com_ change 1
                        |>_user2@example.com_ change 2
@@ -280,7 +280,7 @@ class FormatSlackNotificationTest extends LocalSharedLibraryPipelineTest {
         assertEquals(1, messages.size())
         assertEquals('''*Build succeeded - my-project - cs:12345*
                        |Available in Steam application my-product, branch [my-branch]
-                       |Notify these people: @user1nick @user2nick
+                       |People to notify: @user1nick @user2nick
                        |Changes:
                        |>_user1@example.com_ change 1
                        |>_user2@example.com_ change 2

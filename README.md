@@ -44,13 +44,13 @@ pipeline {
 	
 	post {
 		failure {
-			sendSlackBuildFailedNotification("${SLACK_CHANNEL}", "${PROJECT_NAME}", failedStep, committersToSlackNameLookup)
+			sendSlackBuildFailedNotification(SLACK_CHANNEL, PROJECT_NAME, BUILD_DISPLAY_NAME, failedStep, committersToSlackNameLookup)
 		}
 		success {
-			sendSlackBuildSucceededNotification("${SLACK_CHANNEL}", "${PROJECT_NAME}", committersToSlackNameLookup)
+			sendSlackBuildSucceededNotification(SLACK_CHANNEL, PROJECT_NAME, BUILD_DISPLAY_NAME, committersToSlackNameLookup)
 		}
 		unstable {
-			sendSlackBuildFailedNotification("${SLACK_CHANNEL}", "${PROJECT_NAME}", "Unstable", committersToSlackNameLookup)
+			sendSlackBuildFailedNotification(SLACK_CHANNEL, PROJECT_NAME, BUILD_DISPLAY_NAME, "Unstable", committersToSlackNameLookup)
 		}
 	}
 }

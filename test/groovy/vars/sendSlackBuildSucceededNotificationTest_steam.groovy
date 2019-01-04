@@ -47,11 +47,9 @@ class createSlackBuildSucceededNotificationTest_steam extends LocalSharedLibrary
 
         registerCurrentBuildWithChangeSetsAndTestResults(changes, "test/resources/junit-example-results/two-successful.xml")
 
-        def environment = [PLASTICSCM_CHANGESET_ID : '67']
-        binding.setVariable('env', environment)
-
         binding.setVariable('channel', '#test123')
         binding.setVariable('projectName', 'my-project')
+        binding.setVariable('buildVersion', 'Build 12345')
         binding.setVariable('committerToSlackNameLookup', ['user1@example.com' : 'user1nick', 'user2@example.com' : 'user2nick'])
         binding.setVariable('steamProductName', 'my-product')
         binding.setVariable('steamBranchName', 'my-branch')
@@ -68,7 +66,7 @@ class createSlackBuildSucceededNotificationTest_steam extends LocalSharedLibrary
 
         assertEquals('#test123', (String)slackSendParameters[0][0])
         assertEquals('good', (String)slackSendParameters[0][1])
-        assertEquals('''*Build succeeded - my-project - cs:67*
+        assertEquals('''*Build succeeded - my-project - Build 12345*
                        |Available in Steam application my-product, branch [my-branch]
                        |Changes:
                        |>_user1@example.com_ change 1

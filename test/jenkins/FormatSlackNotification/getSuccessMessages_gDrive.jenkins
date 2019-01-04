@@ -1,4 +1,4 @@
 
 @Library("JenkinsBuildScripts@master") _
 
-messages = new com.falldamagestudio.FormatSlackNotification(this).getSuccessMessages_gDrive(projectName, changeSetId, committers, committerToSlackNameLookup, bucketName, fileName, changeLogs)
+messages = new com.falldamagestudio.FormatSlackNotification(this).getSuccessMessages_gDrive(projectName, buildVersion, committers, committerToSlackNameLookup, bucketName, fileName, changeLogs)

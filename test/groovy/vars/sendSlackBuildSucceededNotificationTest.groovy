@@ -47,11 +47,9 @@ class createSlackBuildSucceededNotificationTest extends LocalSharedLibraryPipeli
 
         registerCurrentBuildWithChangeSetsAndTestResults(changes, "test/resources/junit-example-results/two-successful.xml")
 
-        def environment = [PLASTICSCM_CHANGESET_ID : '67']
-        binding.setVariable('env', environment)
-
         binding.setVariable('channel', '#test123')
         binding.setVariable('projectName', 'my-project')
+        binding.setVariable('buildVersion', 'Build 12345')
         binding.setVariable('committerToSlackNameLookup', ['user1@example.com' : 'user1nick', 'user2@example.com' : 'user2nick'])
 
         def slackSendParameters = []
@@ -66,7 +64,7 @@ class createSlackBuildSucceededNotificationTest extends LocalSharedLibraryPipeli
 
         assertEquals('#test123', (String)slackSendParameters[0][0])
         assertEquals('good', (String)slackSendParameters[0][1])
-        assertEquals('''*Build succeeded - my-project - cs:67*
+        assertEquals('''*Build succeeded - my-project - Build 12345*
                        |Changes:
                        |>_user1@example.com_ change 1
                        |>_user2@example.com_ change 2

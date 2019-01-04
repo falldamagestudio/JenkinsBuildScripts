@@ -8,22 +8,22 @@ class FormatSlackNotificationTest extends LocalSharedLibraryPipelineTest {
     void returnsSuccessfulHeaderLine() {
         binding.setVariable('failedStep', null)
         binding.setVariable('projectName', 'TestProject')
-        binding.setVariable('changeSetId', '12345')
+        binding.setVariable('buildVersion', 'Build 12345')
         binding.setVariable('line', null)
         runScript('test/jenkins/FormatSlackNotification/getHeaderLine.jenkins')
         def line = binding.getVariable('line')
-        assertEquals('*Build succeeded - TestProject - cs:12345*', (String)line)
+        assertEquals('*Build succeeded - TestProject - Build 12345*', (String)line)
     }
 
     @Test
     void returnsFailedHeaderLine() {
         binding.setVariable('failedStep', 'TestStep')
         binding.setVariable('projectName', 'TestProject')
-        binding.setVariable('changeSetId', '12345')
+        binding.setVariable('buildVersion', 'Build 12345')
         binding.setVariable('line', null)
         runScript('test/jenkins/FormatSlackNotification/getHeaderLine.jenkins')
         def line = binding.getVariable('line')
-        assertEquals('*Build failed in \'TestStep\' - TestProject - cs:12345*', (String)line)
+        assertEquals('*Build failed in \'TestStep\' - TestProject - Build 12345*', (String)line)
     }
 
     @Test
@@ -187,7 +187,7 @@ class FormatSlackNotificationTest extends LocalSharedLibraryPipelineTest {
     @Test
     void returnsFailedMessagesWithTestDetails() {
         binding.setVariable('projectName', 'my-project')
-        binding.setVariable('changeSetId', '12345')
+        binding.setVariable('buildVersion', 'Build 12345')
         binding.setVariable('failedStep', 'Tests')
         binding.setVariable('committers', ['user1@example.com', 'user2@example.com'])
         binding.setVariable('committerToSlackNameLookup', ['user1@example.com' : 'user1nick', 'user2@example.com' : 'user2nick'])
@@ -203,7 +203,7 @@ class FormatSlackNotificationTest extends LocalSharedLibraryPipelineTest {
         def messages = binding.getVariable('messages')
 
         assertEquals(1, messages.size())
-        assertEquals('''*Build failed in \'Tests\' - my-project - cs:12345*
+        assertEquals('''*Build failed in \'Tests\' - my-project - Build 12345*
                        |People to notify: @user1nick @user2nick
                        |Changes:
                        |>_user1@example.com_ change 1
@@ -218,7 +218,7 @@ class FormatSlackNotificationTest extends LocalSharedLibraryPipelineTest {
    @Test
     void returnsSuccessMessage() {
         binding.setVariable('projectName', 'my-project')
-        binding.setVariable('changeSetId', '12345')
+        binding.setVariable('buildVersion', 'Build 12345')
         def changeLogs = [new MockChangeLogSetEntry(null, 'user1@example.com', '1234', 'change 1'),
             new MockChangeLogSetEntry(null, 'user2@example.com', '1235', 'change 2')]
         binding.setVariable('committers', ['user1@example.com', 'user2@example.com'])
@@ -229,7 +229,7 @@ class FormatSlackNotificationTest extends LocalSharedLibraryPipelineTest {
         def messages = binding.getVariable('messages')
 
         assertEquals(1, messages.size())
-        assertEquals('''*Build succeeded - my-project - cs:12345*
+        assertEquals('''*Build succeeded - my-project - Build 12345*
                        |People to notify: @user1nick @user2nick
                        |Changes:
                        |>_user1@example.com_ change 1
@@ -240,7 +240,7 @@ class FormatSlackNotificationTest extends LocalSharedLibraryPipelineTest {
     @Test
     void returnsSuccessMessageWithGoogleDriveLink() {
         binding.setVariable('projectName', 'my-project')
-        binding.setVariable('changeSetId', '12345')
+        binding.setVariable('buildVersion', 'Build 12345')
         binding.setVariable('bucketName', 'my-bucket')
         binding.setVariable('fileName', 'my-filename')
         def changeLogs = [new MockChangeLogSetEntry(null, 'user1@example.com', '1234', 'change 1'),
@@ -253,7 +253,7 @@ class FormatSlackNotificationTest extends LocalSharedLibraryPipelineTest {
         def messages = binding.getVariable('messages')
 
         assertEquals(1, messages.size())
-        assertEquals('''*Build succeeded - my-project - cs:12345*
+        assertEquals('''*Build succeeded - my-project - Build 12345*
                        |<https://storage.cloud.google.com/my-bucket/my-filename|Download build>
                        |People to notify: @user1nick @user2nick
                        |Changes:
@@ -265,7 +265,7 @@ class FormatSlackNotificationTest extends LocalSharedLibraryPipelineTest {
     @Test
     void returnsSuccessMessageWithSteamBranchName() {
         binding.setVariable('projectName', 'my-project')
-        binding.setVariable('changeSetId', '12345')
+        binding.setVariable('buildVersion', 'Build 12345')
         binding.setVariable('steamProductName', 'my-product')
         binding.setVariable('steamBranchName', 'my-branch')
         def changeLogs = [new MockChangeLogSetEntry(null, 'user1@example.com', '1234', 'change 1'),
@@ -278,7 +278,7 @@ class FormatSlackNotificationTest extends LocalSharedLibraryPipelineTest {
         def messages = binding.getVariable('messages')
 
         assertEquals(1, messages.size())
-        assertEquals('''*Build succeeded - my-project - cs:12345*
+        assertEquals('''*Build succeeded - my-project - Build 12345*
                        |Available in Steam application my-product, branch [my-branch]
                        |People to notify: @user1nick @user2nick
                        |Changes:

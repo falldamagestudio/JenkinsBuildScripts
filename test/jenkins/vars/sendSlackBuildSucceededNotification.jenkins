@@ -1,4 +1,4 @@
 
 @Library("JenkinsBuildScripts@master") _
 
-message = sendSlackBuildSucceededNotification(channel, projectName, committerToSlackNameLookup)
+message = sendSlackBuildSucceededNotification(channel, projectName, buildVersion, committerToSlackNameLookup)

@@ -47,11 +47,9 @@ class createSlackBuildSucceededNotificationTest_gDrive extends LocalSharedLibrar
 
         registerCurrentBuildWithChangeSetsAndTestResults(changes, "test/resources/junit-example-results/two-successful.xml")
 
-        def environment = [PLASTICSCM_CHANGESET_ID : '67']
-        binding.setVariable('env', environment)
-
         binding.setVariable('channel', '#test123')
         binding.setVariable('projectName', 'my-project')
+        binding.setVariable('buildVersion', 'Build 12345')
         binding.setVariable('committerToSlackNameLookup', ['user1@example.com' : 'user1nick', 'user2@example.com' : 'user2nick'])
         binding.setVariable('bucketName', 'my-bucket')
         binding.setVariable('fileName', 'my-filename')
@@ -68,7 +66,7 @@ class createSlackBuildSucceededNotificationTest_gDrive extends LocalSharedLibrar
 
         assertEquals('#test123', (String)slackSendParameters[0][0])
         assertEquals('good', (String)slackSendParameters[0][1])
-        assertEquals('''*Build succeeded - my-project - cs:67*
+        assertEquals('''*Build succeeded - my-project - Build 12345*
                        |<https://storage.cloud.google.com/my-bucket/my-filename|Download build>
                        |Changes:
                        |>_user1@example.com_ change 1

@@ -1,4 +1,4 @@
 
 @Library("JenkinsBuildScripts@master") _
 
-line = new com.falldamagestudio.FormatSlackNotification(this).getHeaderLine(projectName, changeSetId, failedStep)
+line = new com.falldamagestudio.FormatSlackNotification(this).getHeaderLine(projectName, buildVersion, failedStep)

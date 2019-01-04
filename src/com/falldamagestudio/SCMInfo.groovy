@@ -33,11 +33,6 @@ class SCMInfo implements Serializable {
         return changeLogs
     }
 
-    def getCurrentChangeSetId()
-    {
-		return script.env.PLASTICSCM_CHANGESET_ID
-    }
-
     def getAllCommittersSinceLastSuccessfulBuild(firstBuildToCheck) {
 
         def changes = ""

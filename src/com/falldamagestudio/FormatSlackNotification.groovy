@@ -8,10 +8,10 @@ class FormatSlackNotification implements Serializable {
         this.script = script
     }
 
-    def getHeaderLine(projectName, changeSetId, failedStep) {
+    def getHeaderLine(projectName, buildVersion, failedStep) {
 
         def result = (failedStep ? "failed in '${failedStep}'" : 'succeeded')
-        return "*Build ${result} - ${projectName} - cs:${changeSetId}*"
+        return "*Build ${result} - ${projectName} - ${buildVersion}*"
     }
 
     def getGoogleDriveDownloadLine(bucketName, fileName) {
@@ -114,9 +114,9 @@ class FormatSlackNotification implements Serializable {
         return messages
     }
 
-    def getFailureMessages(projectName, changeSetId, failedStep, committers, committerToSlackNameLookup, changeLogs, failedTests) {
+    def getFailureMessages(projectName, buildVersion, failedStep, committers, committerToSlackNameLookup, changeLogs, failedTests) {
         def lines = []
-        lines.addAll([getHeaderLine(projectName, changeSetId, failedStep)])
+        lines.addAll([getHeaderLine(projectName, buildVersion, failedStep)])
         lines.addAll(getNotificationLines(committers, committerToSlackNameLookup))
         lines.addAll(getChangeLogsLines(changeLogs))
         lines.addAll(getFailedTestsLines(failedTests))
@@ -124,18 +124,18 @@ class FormatSlackNotification implements Serializable {
         return messages
     }
 
-    def getSuccessMessages(projectName, changeSetId, committers, committerToSlackNameLookup, changeLogs) {
+    def getSuccessMessages(projectName, buildVersion, committers, committerToSlackNameLookup, changeLogs) {
         def lines = []
-        lines.addAll([getHeaderLine(projectName, changeSetId, null)])
+        lines.addAll([getHeaderLine(projectName, buildVersion, null)])
         lines.addAll(getNotificationLines(committers, committerToSlackNameLookup))
         lines.addAll(getChangeLogsLines(changeLogs))
         def messages = concatenateLinesToMessages(lines)
         return messages
     }
 
-    def getSuccessMessages_gDrive(projectName, changeSetId, committers, committerToSlackNameLookup, bucketName, fileName, changeLogs) {
+    def getSuccessMessages_gDrive(projectName, buildVersion, committers, committerToSlackNameLookup, bucketName, fileName, changeLogs) {
         def lines = []
-        lines.addAll([getHeaderLine(projectName, changeSetId, null)])
+        lines.addAll([getHeaderLine(projectName, buildVersion, null)])
         lines.addAll([getGoogleDriveDownloadLine(bucketName, fileName)])
         lines.addAll(getNotificationLines(committers, committerToSlackNameLookup))
         lines.addAll(getChangeLogsLines(changeLogs))
@@ -143,9 +143,9 @@ class FormatSlackNotification implements Serializable {
         return messages
     }
 
-    def getSuccessMessages_steam(projectName, changeSetId, committers, committerToSlackNameLookup, steamProductName, steamBranchName, changeLogs) {
+    def getSuccessMessages_steam(projectName, buildVersion, committers, committerToSlackNameLookup, steamProductName, steamBranchName, changeLogs) {
         def lines = []
-        lines.addAll([getHeaderLine(projectName, changeSetId, null)])
+        lines.addAll([getHeaderLine(projectName, buildVersion, null)])
         lines.addAll([getSteamBuildLine(steamProductName, steamBranchName)])
         lines.addAll(getNotificationLines(committers, committerToSlackNameLookup))
         lines.addAll(getChangeLogsLines(changeLogs))

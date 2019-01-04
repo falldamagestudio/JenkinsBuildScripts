@@ -1,4 +1,4 @@
 
 @Library("JenkinsBuildScripts@master") _
 
-message = sendSlackBuildSucceededNotification_gDrive(channel, projectName, committerToSlackNameLookup, bucketName, fileName)
+message = sendSlackBuildSucceededNotification_gDrive(channel, projectName, buildVersion, committerToSlackNameLookup, bucketName, fileName)

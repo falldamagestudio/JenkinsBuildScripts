@@ -28,7 +28,7 @@ class FormatSlackNotification implements Serializable {
 
         for (committer in committers) {
             if (committerToSlackNameLookup.containsKey(committer))
-                notification += " @${committerToSlackNameLookup[committer]}"
+                notification += " ${committerToSlackNameLookup[committer]}"
             else
                 notification += " ${committer} (No Slack name given)"
         }

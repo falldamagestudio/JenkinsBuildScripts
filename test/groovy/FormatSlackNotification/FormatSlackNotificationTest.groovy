@@ -286,4 +286,30 @@ class FormatSlackNotificationTest extends LocalSharedLibraryPipelineTest {
                        |>_user2@example.com_ change 2
                        |'''.stripMargin(), (String)messages[0])
     }
+
+    @Test
+    void returnsSuccessMessageWithCustomLines() {
+        binding.setVariable('projectName', 'my-project')
+        binding.setVariable('buildVersion', 'Build 12345')
+        binding.setVariable('customLines', ['line 1', '<https://storage.cloud.google.com/my-bucket/my-filename|Download build>', 'line 3'])
+        def changeLogs = [new MockChangeLogSetEntry(null, 'user1@example.com', '1234', 'change 1'),
+            new MockChangeLogSetEntry(null, 'user2@example.com', '1235', 'change 2')]
+        binding.setVariable('committers', ['user1@example.com', 'user2@example.com'])
+        binding.setVariable('committerToSlackNameLookup', ['user1@example.com' : 'user1nick', 'user2@example.com' : 'user2nick'])
+        binding.setVariable('changeLogs', changeLogs)
+        binding.setVariable('messages', null)
+        runScript('test/jenkins/FormatSlackNotification/getSuccessMessages_custom.jenkins')
+        def messages = binding.getVariable('messages')
+
+        assertEquals(1, messages.size())
+        assertEquals('''*Build succeeded - my-project - Build 12345*
+                       |line 1
+                       |<https://storage.cloud.google.com/my-bucket/my-filename|Download build>
+                       |line 3
+                       |People to notify: @user1nick @user2nick
+                       |Changes:
+                       |>_user1@example.com_ change 1
+                       |>_user2@example.com_ change 2
+                       |'''.stripMargin(), (String)messages[0])
+    }
 }

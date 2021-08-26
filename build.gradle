@@ -8,7 +8,7 @@ version = "1.0"
 repositories {
     mavenCentral()
     maven {
-        url 'http://repo.jenkins-ci.org/releases/'
+        url 'https://repo.jenkins-ci.org/releases/'
     }
 }
 

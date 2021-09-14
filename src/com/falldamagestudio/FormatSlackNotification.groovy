@@ -124,6 +124,17 @@ class FormatSlackNotification implements Serializable {
         return messages
     }
 
+    def getFailureMessages_custom(projectName, buildVersion, failedStep, committers, committerToSlackNameLookup, customLines, changeLogs, failedTests) {
+        def lines = []
+        lines.addAll([getHeaderLine(projectName, buildVersion, failedStep)])
+        lines.addAll(customLines)
+        lines.addAll(getNotificationLines(committers, committerToSlackNameLookup))
+        lines.addAll(getChangeLogsLines(changeLogs))
+        lines.addAll(getFailedTestsLines(failedTests))
+        def messages = concatenateLinesToMessages(lines)
+        return messages
+    }
+
     def getSuccessMessages(projectName, buildVersion, committers, committerToSlackNameLookup, changeLogs) {
         def lines = []
         lines.addAll([getHeaderLine(projectName, buildVersion, null)])

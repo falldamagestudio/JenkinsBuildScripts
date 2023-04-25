@@ -1,4 +1,3 @@
-import groovy.transform.Lazy
 import groovy.transform.CompileStatic
 
 @CompileStatic
@@ -11,7 +10,7 @@ enum AlaraPlatformEnum {
 
 class AlaraPlatform {
 
-    @Lazy static AlaraPlatformEnum currentPlatform = {
+    static AlaraPlatformEnum currentPlatform = {
         String os = System.getProperty('os.name');
         if (os.contains('Windows')) {
             return AlaraPlatformEnum.WINDOWS;
@@ -22,8 +21,8 @@ class AlaraPlatform {
         throw new UnsupportedOperationException('Unsupported OS: ' + os);
      } ();
 
-    @Lazy static boolean isWindows = { currentPlatform == AlaraPlatformEnum.WINDOWS } ();
+    static boolean isWindows = { currentPlatform == AlaraPlatformEnum.WINDOWS } ();
 
-    @Lazy static boolean isLinux = { currentPlatform == AlaraPlatformEnum.LINUX } ();
+    static boolean isLinux = { currentPlatform == AlaraPlatformEnum.LINUX } ();
 
 }

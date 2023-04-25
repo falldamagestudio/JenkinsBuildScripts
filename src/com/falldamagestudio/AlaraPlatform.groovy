@@ -13,19 +13,23 @@ enum AlaraPlatformEnum {
 @CompileStatic
 class AlaraPlatform {
 
-    @Lazy static AlaraPlatformEnum currentPlatform = {
+    static {
         String os = System.getProperty('os.name');
         if (os.contains('Windows')) {
-            return AlaraPlatformEnum.WINDOWS;
+            CURRENT_PLATFORM = AlaraPlatformEnum.WINDOWS;
+            IS_WINDOWS = true;
+            return;
         } else if (os.contains('Linux')) {
-            return AlaraPlatformEnum.LINUX;
+            CURRENT_PLATFORM = AlaraPlatformEnum.LINUX;
+            IS_LINUX = true;
+            return;
         }
 
         throw new UnsupportedOperationException('Unsupported OS: ' + os);
-     } ();
+    }
 
-    @Lazy static boolean isWindows = { currentPlatform == AlaraPlatformEnum.WINDOWS } ();
-
-    @Lazy static boolean isLinux = { currentPlatform == AlaraPlatformEnum.LINUX } ();
+    final static AlaraPlatformEnum CURRENT_PLATFORM;
+    final static boolean IS_WINDOWS;
+    final static boolean IS_LINUX;
 
 }

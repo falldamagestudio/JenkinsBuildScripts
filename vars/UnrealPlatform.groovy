@@ -11,13 +11,13 @@ import groovy.transform.CompileStatic
 class UnrealPlatform {
 
     /**
-     * The {@code platformWin64} field represents the name of the Win64 platform.
+     * The {@code PLATFORM_WIN64} field represents the name of the Win64 platform.
      */
-    final String platformWin64 = 'Win64';
+    static final String PLATFORM_WIN64 = 'Win64';
 
     /**
-     * The {@code platformLinux} field represents the name of the Linux platform.
+     * The {@code PLATFORM_LINUX} field represents the name of the Linux platform.
      */
-    final String platformLinux = 'Linux';
+    static final String PLATFORM_LINUX = 'Linux';
 
 }

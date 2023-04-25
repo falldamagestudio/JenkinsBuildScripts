@@ -8,7 +8,6 @@ enum AlaraPlatformEnum {
 
 }
 
-@CompileStatic
 class AlaraPlatform {
 
     @Lazy static AlaraPlatformEnum currentPlatform = {

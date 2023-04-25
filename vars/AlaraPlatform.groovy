@@ -10,7 +10,12 @@ enum AlaraPlatformEnum {
 
 class AlaraPlatform {
 
+    static AlaraPlatformEnum getCurrentPlatform() {
+        return currentPlatform;
+    }
+
     static AlaraPlatformEnum currentPlatform = {
+
         String os = System.getProperty('os.name');
         if (os.contains('Windows')) {
             return AlaraPlatformEnum.WINDOWS;

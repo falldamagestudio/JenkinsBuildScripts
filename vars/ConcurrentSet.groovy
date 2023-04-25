@@ -22,9 +22,9 @@ class ConcurrentSet {
     }
 
     /**
-    * returns list of keys
+    * returns list of items in set
     */
-    List<String> getKeys() {
+    List<String> toList() {
         return set.toList();
     }
 

@@ -1,3 +1,4 @@
+import groovy.transform.Lazy
 import groovy.transform.CompileStatic
 
 @CompileStatic

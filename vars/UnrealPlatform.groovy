@@ -1,3 +1,5 @@
+import groovy.transform.CompileStatic
+
 /**
  * The {@code UnrealPlatform} class represents the platforms supported by Unreal Engine.
  * <p>

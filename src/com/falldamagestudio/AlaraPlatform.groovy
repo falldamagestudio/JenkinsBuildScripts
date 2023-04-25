@@ -1,3 +1,6 @@
+package com.falldamagestudio
+
+import groovy.transform.Lazy
 import groovy.transform.CompileStatic
 
 @CompileStatic
@@ -8,14 +11,10 @@ enum AlaraPlatformEnum {
 
 }
 
+@CompileStatic
 class AlaraPlatform {
 
-    static AlaraPlatformEnum getCurrentPlatform() {
-        return currentPlatform;
-    }
-
-    static AlaraPlatformEnum currentPlatform = {
-
+    @Lazy static AlaraPlatformEnum currentPlatform = {
         String os = System.getProperty('os.name');
         if (os.contains('Windows')) {
             return AlaraPlatformEnum.WINDOWS;
@@ -26,8 +25,8 @@ class AlaraPlatform {
         throw new UnsupportedOperationException('Unsupported OS: ' + os);
      } ();
 
-    static boolean isWindows = { currentPlatform == AlaraPlatformEnum.WINDOWS } ();
+    @Lazy static boolean isWindows = { currentPlatform == AlaraPlatformEnum.WINDOWS } ();
 
-    static boolean isLinux = { currentPlatform == AlaraPlatformEnum.LINUX } ();
+    @Lazy static boolean isLinux = { currentPlatform == AlaraPlatformEnum.LINUX } ();
 
 }

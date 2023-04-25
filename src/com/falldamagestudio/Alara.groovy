@@ -7,12 +7,13 @@ class Alara implements Serializable {
     Alara(Object script) { this.script = script }
 
     void run(String cmd, List arguments) {
-        if (AlaraPlatform.isWindows) {
-            script.bat(cmd, arguments);
-        }
-        else {
-            script.sh(cmd, arguments);
-        }
+        // if (AlaraPlatform.isWindows) {
+        //     script.bat(cmd, arguments);
+        // }
+        // else {
+        //     script.sh(cmd, arguments);
+        // }
+        script.sh(cmd, arguments);
     }
 
 }

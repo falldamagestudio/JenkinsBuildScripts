@@ -3,7 +3,7 @@ package com.falldamagestudio
 class Alara {
 
     static void run(Object script, String cmdString) {
-        runWithArgs(script, cmdString, []);
+        runWithArgs(script, cmdString, null);
     }
 
     static void runWithArgs(Object script, String cmd, Object[] arguments) {

@@ -1,7 +1,5 @@
 package com.falldamagestudio
 
-import static com.falldamagestudio.AlaraPlatform
-
 class Alara {
 
     static void run(Object script, String cmdString) {

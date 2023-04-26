@@ -2,19 +2,19 @@ import com.falldamagestudio.AutoMagic
 
 Object call(String scriptName) {
     return AutoMagic.runScript(this,
-        AutoMagic.autoMagicPath, AutoMagic.autoMagicScriptsPath, AutoMagic.EMPTY_MAP,
+        AutoMagic.getAutoMagicPath(this), AutoMagic.getAutoMagicScriptsPath(this), AutoMagic.EMPTY_MAP,
         scriptName, AutoMagic.EMPTY_MAP, false);
 }
 
 Object call(String scriptName, boolean returnOutput) {
     return AutoMagic.runScript(this,
-        AutoMagic.autoMagicPath, AutoMagic.autoMagicScriptsPath, AutoMagic.EMPTY_MAP,
+        AutoMagic.getAutoMagicPath(this), AutoMagic.getAutoMagicScriptsPath(this), AutoMagic.EMPTY_MAP,
         scriptName, AutoMagic.EMPTY_MAP, returnOutput);
 }
 
 Object call(String scriptName,  Map scriptArguments, boolean returnOutput = false) {
     return AutoMagic.runScript(this,
-        AutoMagic.autoMagicPath, AutoMagic.autoMagicScriptsPath, AutoMagic.EMPTY_MAP,
+        AutoMagic.getAutoMagicPath(this), AutoMagic.getAutoMagicScriptsPath(this), AutoMagic.EMPTY_MAP,
         scriptName, scriptArguments, returnOutput);
 }
 
@@ -29,7 +29,7 @@ Object call(Map autoMagicArguments, String scriptName,
     Map scriptArguments, boolean returnOutput = false) {
 
     return AutoMagic.runScript(this,
-        AutoMagic.autoMagicPath, AutoMagic.autoMagicScriptsPath, autoMagicArguments,
+        AutoMagic.getAutoMagicPath(this), AutoMagic.getAutoMagicScriptsPath(this), autoMagicArguments,
          scriptName, scriptArguments, returnOutput);
 }
 

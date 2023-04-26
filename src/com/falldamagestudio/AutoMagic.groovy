@@ -46,8 +46,6 @@ class AutoMagic {
         }
     }
 
-    static String autoMagicPath;
-
     static String getAutoMagicPath(Object script) {
         String workspacePath = script.env.WORKSPACE;
 
@@ -55,8 +53,6 @@ class AutoMagic {
             ? "$workspacePath\\Binaries\\windows\\AutoMagic\\AutoMagic.CommandLine.exe"
             : "$workspacePath/Binaries/debian/AutoMagic/AutoMagic.CommandLine";
     }
-
-    static String autoMagicScriptsPath;
 
     static String getAutoMagicScriptsPath(Object script) {
         String workspacePath = script.env.WORKSPACE;

@@ -1,18 +1,14 @@
 package com.falldamagestudio
 
-class Alara implements Serializable {
+import static com.falldamagestudio.AlaraPlatform
 
-    private static final long serialVersionUID = 1L;
+class Alara {
 
-    Object script
-
-    Alara(Object script) { this.script = script }
-
-    void run(String cmdString) {
-        runAndReturnStatus(cmdString, false);
+    static void run(Object script, String cmdString) {
+        runAndReturnStatus(script, cmdString, false);
     }
 
-    void run(String cmd, Object[] arguments) {
+    static void run(Object script, String cmd, Object[] arguments) {
         String stringToCall = null;
 
         if (arguments) {
@@ -23,10 +19,10 @@ class Alara implements Serializable {
             stringToCall = cmd;
         }
 
-        run(stringToCall);
+        run(script, stringToCall);
     }
 
-    Integer runAndReturnStatus(String cmdString, boolean returnStatus = true) {
+    static Integer runAndReturnStatus(Object script, String cmdString, boolean returnStatus = true) {
         if (AlaraPlatform.IS_WINDOWS) {
             return script.bat(script: cmdString, returnStatus: returnStatus);
         }
@@ -34,7 +30,7 @@ class Alara implements Serializable {
         return script.sh(script: cmdString, returnStatus : returnStatus);
     }
 
-    Integer runCmdReturnStatus(String cmd,  Object[] arguments) {
+    static Integer runCmdReturnStatus(Object script, String cmd,  Object[] arguments) {
         String stringToCall = null;
         if (arguments) {
             String argumentsString = joinArguments(arguments);
@@ -44,10 +40,10 @@ class Alara implements Serializable {
             stringToCall = cmd;
         }
 
-        return runCmdReturnStatus(stringToCall);
+        return runCmdReturnStatus(script, stringToCall);
     }
 
-    private String joinArguments(Object[] arguments) {
+    private static String joinArguments(Object[] arguments) {
         String returnString = '';
 
         for (def argument in arguments) {

@@ -46,9 +46,9 @@ class AutoMagic {
         }
     }
 
-    private static String autoMagicPath;
+    static String autoMagicPath;
 
-    private static String getAutoMagicPath(Object script) {
+    static String getAutoMagicPath(Object script) {
         String workspacePath = script.env.WORKSPACE;
 
         return Alara.isWindows(script)
@@ -56,9 +56,9 @@ class AutoMagic {
             : "$workspacePath/Binaries/debian/AutoMagic/AutoMagic.CommandLine";
     }
 
-    private static String autoMagicScriptsPath;
+    static String autoMagicScriptsPath;
 
-    private static String getAutoMagicScriptsPath(Object script) {
+    static String getAutoMagicScriptsPath(Object script) {
         String workspacePath = script.env.WORKSPACE;
         return "$workspacePath/Scripts/AutoMagic/AutoMagic.Scripts";
     }

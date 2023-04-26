@@ -20,10 +20,10 @@ void call(String cmd, Object[] arguments) {
 
 Integer runAndReturnStatus(String cmdString, boolean returnStatus = true) {
     if (AlaraPlatform.IS_WINDOWS) {
-        return script.bat(script: cmdString, returnStatus: returnStatus);
+        return this.bat(script: cmdString, returnStatus: returnStatus);
     }
 
-    return script.sh(script: cmdString, returnStatus : returnStatus);
+    return this.sh(script: cmdString, returnStatus : returnStatus);
 }
 
 Integer runCmdReturnStatus(String cmd,  Object[] arguments) {

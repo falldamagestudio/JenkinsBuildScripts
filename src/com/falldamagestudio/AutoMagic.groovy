@@ -4,30 +4,6 @@ class AutoMagic {
 
     static final Map EMPTY_MAP = Collections.unmodifiableMap([:]);
 
-    Object runScript(Object script, String cmd) {
-        return runScript(script, EmptyMap, cmd, EmptyMap, false);
-    }
-
-    Object runScript(Object script, String cmd, Boolean returnOutput) {
-        return runScript(script, EmptyMap, cmd, EmptyMap, returnOutput);
-    }
-
-    Object runScript(Object script, String scriptName,  Map scriptArguments, boolean returnOutput) {
-        return runScript(script, EmptyMap, scriptName, scriptArguments, returnOutput);
-    }
-
-    Object runScript(Object script, String cliPath, String amScriptPath,
-        String scriptName, Map scriptArguments, boolean returnOutput) {
-        return runScript(script, cliPath, amScriptPath, EmptyMap, scriptName, scriptArguments, returnOutput);
-    }
-
-    Object runScript(Object script, Map autoMagicArguments, String scriptName,
-        Map scriptArguments, boolean returnOutput) {
-
-        return runScript(script, autoMagicPath, autoMagicScriptsPath,
-            autoMagicArguments, scriptName, scriptArguments, returnOutput);
-    }
-
     Object runScript(Object script, String cliPath, String amScriptPath,
                         Map autoMagicArguments, String scriptName,
                         Map scriptArguments, boolean returnOutput) {

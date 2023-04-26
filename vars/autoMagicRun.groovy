@@ -1,7 +1,13 @@
 import com.falldamagestudio.AutoMagic
 
-Object call(String cmd, boolean returnOutput = false) {
-    return AutoMagic.runScript(this, cmd, returnOutput);
+Object call(String scriptName) {
+    return AutoMagic.runScript(this, autoMagicPath, autoMagicScriptsPath,
+            EmptyMap, scriptName, EmptyMap, false);
+}
+
+Object call(String scriptName, boolean returnOutput) {
+    return AutoMagic.runScript(this, autoMagicPath, autoMagicScriptsPath,
+            EmptyMap, scriptName, EmptyMap, returnOutput);
 }
 
 Object call(String scriptName,  Map scriptArguments, boolean returnOutput = false) {

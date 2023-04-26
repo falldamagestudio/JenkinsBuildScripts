@@ -1,28 +1,28 @@
 import com.falldamagestudio.AutoMagic
 
-Object call(Object script, String cmd, boolean returnOutput = false) {
-    return AutoMagic.runScript(script, cmd, returnOutput);
+Object call(String cmd, boolean returnOutput = false) {
+    return AutoMagic.runScript(this, cmd, returnOutput);
 }
 
-Object call(Object script, String scriptName,  Map scriptArguments, boolean returnOutput = false) {
-    return AutoMagic.runScript(script, EmptyMap, scriptName, scriptArguments, returnOutput);
+Object call(String scriptName,  Map scriptArguments, boolean returnOutput = false) {
+    return AutoMagic.runScript(this, EmptyMap, scriptName, scriptArguments, returnOutput);
 }
 
-Object call(Object script, String cliPath, String amScriptPath,
+Object call(String cliPath, String amScriptPath,
     String scriptName, Map scriptArguments, boolean returnOutput = false) {
-    return AutoMagic.runScript(script, cliPath, amScriptPath, EmptyMap, scriptName, scriptArguments, returnOutput);
+    return AutoMagic.runScript(this, cliPath, amScriptPath, EmptyMap, scriptName, scriptArguments, returnOutput);
 }
 
-Object call(Object script, Map autoMagicArguments, String scriptName,
+Object call(Map autoMagicArguments, String scriptName,
     Map scriptArguments, boolean returnOutput = false) {
 
-    return AutoMagic.runScript(script, autoMagicPath, autoMagicScriptsPath,
+    return AutoMagic.runScript(this, autoMagicPath, autoMagicScriptsPath,
         autoMagicArguments, scriptName, scriptArguments, returnOutput);
 }
 
-Object call(Object script, String cliPath, String amScriptPath,
+Object call(String cliPath, String amScriptPath,
                     Map autoMagicArguments, String scriptName,
                     Map scriptArguments, boolean returnOutput = false) {
-    return AutoMagic.runScript(script, cliPath, amScriptPath, autoMagicArguments,
+    return AutoMagic.runScript(this, cliPath, amScriptPath, autoMagicArguments,
         scriptName, scriptArguments, returnOutput);
 }

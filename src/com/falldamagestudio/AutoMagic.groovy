@@ -82,4 +82,5 @@ class AutoMagic {
         String workspacePath = script.env.WORKSPACE;
         return "$workspacePath/Scripts/AutoMagic/AutoMagic.Scripts";
     }
+
 }

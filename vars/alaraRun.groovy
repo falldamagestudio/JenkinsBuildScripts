@@ -1,5 +1,6 @@
+import com.falldamagestudio.Alara;
 
 void call(String cmd, List arguments) {
-    Alara alara = new com.falldamagestudio.Alara(this);
+    Alara alara = new Alara(this);
     alara.run(cmd, arguments);
 }

@@ -1,3 +1,5 @@
+import com.falldamagestudio.AlaraPlatform
+
 void call(String cmdString) {
     runAndReturnStatus(cmdString, false);
 }

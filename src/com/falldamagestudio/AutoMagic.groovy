@@ -24,7 +24,7 @@ class AutoMagic {
 
         String cmdString = "$cliPath $amArugentsString run $scriptName $scriptArgumentsString";
 
-        return isWindows(script)
+        return Alara.isWindows(script)
             ? script.bat(script: cmdString, returnStdout:returnOutput)
             : script.sh(script: cmdString, returnStdout:returnOutput);
     }
@@ -37,7 +37,7 @@ class AutoMagic {
         String runFilePath = "$restartFromPath/run.txt";
         String commandToRun = readFile(runFilePath);
         echo("Running command from: $runFilePath");
-        if (isWindows(script)) {
+        if (Alara.isWindows(script)) {
             script.bat(commandToRun);
         }
         else {

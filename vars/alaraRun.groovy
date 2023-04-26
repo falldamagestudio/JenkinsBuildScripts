@@ -15,7 +15,7 @@ void call(String cmd, Object[] arguments) {
         stringToCall = cmd;
     }
 
-    run(stringToCall);
+    call(stringToCall);
 }
 
 Integer runAndReturnStatus(String cmdString, boolean returnStatus = true) {

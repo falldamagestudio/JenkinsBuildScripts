@@ -1,9 +1,10 @@
 import com.falldamagestudio.AutoMagic
 
 Object call(String scriptName) {
-    return AutoMagic.runScript(this,
-        AutoMagic.getAutoMagicPath(this), AutoMagic.getAutoMagicScriptsPath(this), AutoMagic.EMPTY_MAP,
-        scriptName, AutoMagic.EMPTY_MAP, false);
+    return AutoMagic.test(this);
+    // return AutoMagic.runScript(this,
+    //     AutoMagic.getAutoMagicPath(this), AutoMagic.getAutoMagicScriptsPath(this), AutoMagic.EMPTY_MAP,
+    //     scriptName, AutoMagic.EMPTY_MAP, False);
 }
 
 Object call(String scriptName, boolean returnOutput) {

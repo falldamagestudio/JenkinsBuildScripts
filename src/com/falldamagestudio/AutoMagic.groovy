@@ -4,6 +4,11 @@ class AutoMagic {
 
     static final Map EMPTY_MAP = Collections.unmodifiableMap([:]);
 
+    Object test(Object script) {
+        script.echo("test");
+        return null;
+    }
+
     Object runScript(Object script, String cliPath, String amScriptPath, Map autoMagicArguments,
                         String scriptName, Map scriptArguments, Boolean returnOutput) {
         String amArugentsString = """--scriptpath="$amScriptPath" """;
@@ -27,7 +32,7 @@ class AutoMagic {
         return isWindows(script)
             ? script.bat(script: cmdString, returnStdout:returnOutput)
             : script.sh(script: cmdString, returnStdout:returnOutput);
-                        }
+    }
 
     void runScriptFrom(Object script, String restartFromPath, Map autoMagicArguments,
                         String scriptName, Map scriptArguments) {
@@ -43,7 +48,7 @@ class AutoMagic {
         else {
             script.sh(commandToRun);
         }
-                        }
+    }
 
     static String getAutoMagicPath(Object script) {
         String workspacePath = script.env.WORKSPACE;

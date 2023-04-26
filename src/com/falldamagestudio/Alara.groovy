@@ -11,7 +11,7 @@ class Alara {
     }
 
     static Integer runAndReturnStatus(Object script, String cmdString, boolean returnStatus) {
-        return runCmdReturnStatusWithArgs(script, cmdString, returnStatus, []);
+        return runCmdReturnStatusWithArgs(script, cmdString, returnStatus, null);
     }
 
     static Integer runCmdReturnStatusWithArgs(Object script, String cmd, boolean returnStatus, Object[] arguments) {

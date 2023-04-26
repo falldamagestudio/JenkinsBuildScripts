@@ -2,6 +2,8 @@ package com.falldamagestudio
 
 class Alara implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     Object script
 
     Alara(Object script) { this.script = script }

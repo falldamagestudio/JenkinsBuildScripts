@@ -21,8 +21,7 @@ class Alara {
     }
 
     static Integer runAndReturnStatus(Object script, String cmdString, boolean returnStatus = true) {
-        /* groovylint-disable-next-line NglParseError */
-        if (AlaraPlatform.isWindows()) {
+        if (isWindows(script)) {
             return script.bat(script: cmdString, returnStatus: returnStatus);
         }
 

@@ -4,12 +4,7 @@ class AutoMagic {
 
     static final Map EMPTY_MAP = Collections.unmodifiableMap([:]);
 
-    Object test(Object script) {
-        script.echo("test");
-        return null;
-    }
-
-    Object runScript(Object script, String cliPath, String amScriptPath, Map autoMagicArguments,
+    static Object runScript(Object script, String cliPath, String amScriptPath, Map autoMagicArguments,
                         String scriptName, Map scriptArguments, Boolean returnOutput) {
         String amArugentsString = """--scriptpath="$amScriptPath" """;
         List autoMagicArgumentsList = mapToList(autoMagicArguments);
@@ -34,7 +29,7 @@ class AutoMagic {
             : script.sh(script: cmdString, returnStdout:returnOutput);
     }
 
-    void runScriptFrom(Object script, String restartFromPath, Map autoMagicArguments,
+    static void runScriptFrom(Object script, String restartFromPath, Map autoMagicArguments,
                         String scriptName, Map scriptArguments) {
         autoMagicArguments['restartfrom'] = restartFromPath;
         runScript(autoMagicArguments, scriptName, scriptArguments);

@@ -5,5 +5,5 @@ void call(String cmdString) {
 }
 
 void call(String cmd, Object[] arguments) {
-    Alara.run(this, cmd, arguments);
+    Alara.runWithArgs(this, cmd, arguments);
 }

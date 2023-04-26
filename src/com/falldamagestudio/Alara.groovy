@@ -3,12 +3,19 @@ package com.falldamagestudio
 class Alara {
 
     static void run(Object script, String cmdString) {
-        runAndReturnStatus(script, cmdString, false);
+        runWithArgs(script, cmdString, []);
     }
 
-    static void run(Object script, String cmd, Object[] arguments) {
-        String stringToCall = null;
+    static void runWithArgs(Object script, String cmd, Object[] arguments) {
+        runCmdReturnStatusWithArgs(script, cmd, false, arguments);
+    }
 
+    static Integer runAndReturnStatus(Object script, String cmdString, boolean returnStatus) {
+        return runCmdReturnStatusWithArgs(script, cmdString, returnStatus, []);
+    }
+
+    static Integer runCmdReturnStatusWithArgs(Object script, String cmd, boolean returnStatus, Object[] arguments) {
+        String stringToCall = null;
         if (arguments) {
             String argumentsString = joinArguments(arguments);
             stringToCall = /$cmd $argumentsString/;
@@ -17,35 +24,18 @@ class Alara {
             stringToCall = cmd;
         }
 
-        run(script, stringToCall);
-    }
-
-    static Integer runAndReturnStatus(Object script, String cmdString, boolean returnStatus = true) {
         if (isWindows(script)) {
-            return script.bat(script: cmdString, returnStatus: returnStatus);
+            return script.bat(script: stringToCall, returnStatus: returnStatus);
         }
 
-        return script.sh(script: cmdString, returnStatus : returnStatus);
+        return script.sh(script: stringToCall, returnStatus : returnStatus);
     }
 
-    static Integer runCmdReturnStatus(Object script, String cmd,  Object[] arguments) {
-        String stringToCall = null;
-        if (arguments) {
-            String argumentsString = joinArguments(arguments);
-            stringToCall = /$cmd $argumentsString/;
-        }
-        else {
-            stringToCall = cmd;
-        }
-
-        return runCmdReturnStatus(script, stringToCall);
-    }
-
-    static boolean isWindows(def script) {
+    static boolean isWindows(Object script) {
         /*
         * In order to figure out OS version we cannot use System.properties['os.name'] here. In lightweight mode it will
-        * return 'linux' even if job is running on Windows. Insetead checking for the presense and value of OS environment
-        * variable
+        * return 'linux' even if job is running on Windows. Insetead checking for the presense and value of OS
+        * environment variable
         */
         return script.env.OS && script.env.OS == 'Windows_NT';
     }

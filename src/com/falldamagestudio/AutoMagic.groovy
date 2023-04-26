@@ -4,21 +4,25 @@ class AutoMagic {
 
     static final Map EMPTY_MAP = Collections.unmodifiableMap([:]);
 
-    Object runScript(Object script, String cmd, boolean returnOutput = false) {
+    Object runScript(Object script, String cmd) {
+        return runScript(script, EmptyMap, cmd, EmptyMap, false);
+    }
+
+    Object runScript(Object script, String cmd, boolean returnOutput) {
         return runScript(script, EmptyMap, cmd, EmptyMap, returnOutput);
     }
 
-    Object runScript(Object script, String scriptName,  Map scriptArguments, boolean returnOutput = false) {
+    Object runScript(Object script, String scriptName,  Map scriptArguments, boolean returnOutput) {
         return runScript(script, EmptyMap, scriptName, scriptArguments, returnOutput);
     }
 
     Object runScript(Object script, String cliPath, String amScriptPath,
-        String scriptName, Map scriptArguments, boolean returnOutput = false) {
+        String scriptName, Map scriptArguments, boolean returnOutput) {
         return runScript(script, cliPath, amScriptPath, EmptyMap, scriptName, scriptArguments, returnOutput);
     }
 
     Object runScript(Object script, Map autoMagicArguments, String scriptName,
-        Map scriptArguments, boolean returnOutput = false) {
+        Map scriptArguments, boolean returnOutput) {
 
         return runScript(script, autoMagicPath, autoMagicScriptsPath,
             autoMagicArguments, scriptName, scriptArguments, returnOutput);
@@ -26,7 +30,7 @@ class AutoMagic {
 
     Object runScript(Object script, String cliPath, String amScriptPath,
                         Map autoMagicArguments, String scriptName,
-                        Map scriptArguments, boolean returnOutput = false) {
+                        Map scriptArguments, boolean returnOutput) {
         String amArugentsString = """--scriptpath="$amScriptPath" """;
         List autoMagicArgumentsList = mapToList(autoMagicArguments);
         for (def item in autoMagicArgumentsList) {

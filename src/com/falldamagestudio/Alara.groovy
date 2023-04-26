@@ -21,7 +21,8 @@ class Alara {
     }
 
     static Integer runAndReturnStatus(Object script, String cmdString, boolean returnStatus = true) {
-        if (AlaraPlatform.IS_WINDOWS) {
+        /* groovylint-disable-next-line NglParseError */
+        if (AlaraPlatform.isWindows()) {
             return script.bat(script: cmdString, returnStatus: returnStatus);
         }
 
@@ -39,6 +40,15 @@ class Alara {
         }
 
         return runCmdReturnStatus(script, stringToCall);
+    }
+
+    static boolean isWindows(def script) {
+        /*
+        * In order to figure out OS version we cannot use System.properties['os.name'] here. In lightweight mode it will
+        * return 'linux' even if job is running on Windows. Insetead checking for the presense and value of OS environment
+        * variable
+        */
+        return script.env.OS && script.env.OS == 'Windows_NT';
     }
 
     private static String joinArguments(Object[] arguments) {

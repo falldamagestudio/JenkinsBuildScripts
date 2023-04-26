@@ -16,6 +16,27 @@ void call(String cmd, Object[] arguments) {
     run(stringToCall);
 }
 
+Integer runAndReturnStatus(String cmdString, boolean returnStatus = true) {
+    if (AlaraPlatform.IS_WINDOWS) {
+        return script.bat(script: cmdString, returnStatus: returnStatus);
+    }
+
+    return script.sh(script: cmdString, returnStatus : returnStatus);
+}
+
+Integer runCmdReturnStatus(String cmd,  Object[] arguments) {
+    String stringToCall = null;
+    if (arguments) {
+        String argumentsString = joinArguments(arguments);
+        stringToCall = /$cmd $argumentsString/;
+    }
+    else {
+        stringToCall = cmd;
+    }
+
+    return runCmdReturnStatus(stringToCall);
+}
+
 private String joinArguments(Object[] arguments) {
     String returnString = '';
 

@@ -7,8 +7,8 @@ class AutoMagic {
     static Object runScript(Object script, String cliPath, String amScriptPath, Map autoMagicArguments,
                         String scriptName, Map scriptArguments, Boolean returnOutput) {
         String amArugentsString = """--scriptpath="$amScriptPath" """;
-        List autoMagicArgumentsList = mapToList(autoMagicArguments);
-        for (def item in autoMagicArgumentsList) {
+
+        for (def item in autoMagicArguments) {
             if (item.value) {
                 amArugentsString += """--$item.key="$item.value" """;
             } else {
@@ -17,8 +17,8 @@ class AutoMagic {
         }
 
         String scriptArgumentsString = '';
-        List scriptArgumentsList = mapToList(scriptArguments);
-        for (def item in scriptArgumentsList) {
+
+        for (def item in scriptArguments) {
             scriptArgumentsString += """--$item.key="$item.value" """;
         }
 

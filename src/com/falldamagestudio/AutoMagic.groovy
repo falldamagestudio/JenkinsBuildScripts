@@ -8,7 +8,7 @@ class AutoMagic {
         return runScript(script, EmptyMap, cmd, EmptyMap, false);
     }
 
-    Object runScript(Object script, String cmd, boolean returnOutput) {
+    Object runScript(Object script, String cmd, Boolean returnOutput) {
         return runScript(script, EmptyMap, cmd, EmptyMap, returnOutput);
     }
 

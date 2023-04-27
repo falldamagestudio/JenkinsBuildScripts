@@ -8,7 +8,7 @@ class AutoMagic {
                         String scriptName, Map scriptArguments, Boolean returnOutput) {
         String amArugentsString = """--scriptpath="$amScriptPath" """;
 
-        for (def item in autoMagicArguments) {
+        for (def item in mapToList(autoMagicArguments)) {
             if (item.value) {
                 amArugentsString += """--$item.key="$item.value" """;
             } else {
@@ -18,7 +18,7 @@ class AutoMagic {
 
         String scriptArgumentsString = '';
 
-        for (def item in scriptArguments) {
+        for (def item in mapToList(scriptArguments)) {
             scriptArgumentsString += """--$item.key="$item.value" """;
         }
 
@@ -58,6 +58,19 @@ class AutoMagic {
     static String getAutoMagicScriptsPath(Object script) {
         String workspacePath = script.env.WORKSPACE;
         return "$workspacePath/Scripts/AutoMagic/AutoMagic.Scripts";
+    }
+
+    // This is a workaround for a Jenkins crash "java.io.NotSerializableException: java.util.LinkedHashMap$Entry".
+    // It doesn't look that this bug would be fixed any time soon https://issues.jenkins.io/browse/JENKINS-49732
+    // So, we need to do this workaround. Copy-pasted from:
+    // https://stackoverflow.com/questions/40159258/impossibility-to-iterate-over-a-map-using-groovy-within-jenkins-pipeline
+    @NonCPS
+    private static List mapToList(Map inMap) {
+        List outList = [];
+        for (def mapEntry in inMap) {
+            outList.add(new java.util.AbstractMap.SimpleImmutableEntry(mapEntry.key, mapEntry.value));
+        }
+        return outList;
     }
 
 }

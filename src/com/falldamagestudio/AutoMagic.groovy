@@ -32,7 +32,9 @@ class AutoMagic {
     static void runScriptFrom(Object script, String restartFromPath, Map autoMagicArguments,
                         String scriptName, Map scriptArguments) {
         autoMagicArguments['restartfrom'] = restartFromPath;
-        runScript(autoMagicArguments, scriptName, scriptArguments);
+        runScript(script,
+            getAutoMagicPath(script), getAutoMagicScriptsPath(script), autoMagicArguments,
+            scriptName, scriptArguments, false);
 
         String runFilePath = "$restartFromPath/run.txt";
         String commandToRun = readFile(runFilePath);

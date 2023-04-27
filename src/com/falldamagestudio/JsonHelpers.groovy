@@ -2,8 +2,8 @@ package com.falldamagestudio
 
 class JsonHelpers {
 
-    static Object readJsonSerializable(String filePath) {
-        Object jsonContent = readJson(filePath);
+    static Object readJsonSerializable(Object script, String filePath) {
+        Object jsonContent = readJson(script, filePath);
         return toSerializable(jsonContent);
     }
 
@@ -30,8 +30,8 @@ class JsonHelpers {
         return obj;
     }
 
-    private static Object readJson(String filePath) {
-        String fileContent = readFile(filePath);
+    private static Object readJson(Object script, String filePath) {
+        String fileContent = script.readFile(filePath);
         return new groovy.json.JsonSlurper().parseText(fileContent);
     }
 

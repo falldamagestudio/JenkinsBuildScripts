@@ -1,25 +1,25 @@
-// // toSerializable function works  with non-serializable objects. Cannot pause this method in jenkins. Adding NonCPS
-// @NonCPS
-// Object toSerializable(Object obj) {
-//     /* groovylint-disable-next-line Instanceof */
-//     if (obj instanceof groovy.json.internal.LazyValueMap || obj instanceof groovy.json.internal.LazyMap) {
-//         Map copy = [:];
-//         for (pair in (obj as Map)) {
-//             copy.put(pair.key, toSerializable(pair.value));
-//         }
-//         return copy;
-//     }
-//
-//     /* groovylint-disable-next-line Instanceof */
-//     if (obj instanceof groovy.json.internal.ValueList) {
-//         List copy = [];
-//         for (item in (obj as List)) {
-//             copy.add(toSerializable(item));
-//         }
-//         return copy;
-//     }
-//     return obj;
-// }
+// toSerializable function works  with non-serializable objects. Cannot pause this method in jenkins. Adding NonCPS
+@NonCPS
+Object toSerializable(Object obj) {
+    /* groovylint-disable-next-line Instanceof */
+    if (obj instanceof groovy.json.internal.LazyValueMap || obj instanceof groovy.json.internal.LazyMap) {
+        Map copy = [:];
+        for (pair in (obj as Map)) {
+            copy.put(pair.key, toSerializable(pair.value));
+        }
+        return copy;
+    }
+
+    /* groovylint-disable-next-line Instanceof */
+    if (obj instanceof groovy.json.internal.ValueList) {
+        List copy = [];
+        for (item in (obj as List)) {
+            copy.add(toSerializable(item));
+        }
+        return copy;
+    }
+    return obj;
+}
 
 Object readJson(String filePath) {
     String fileContent = readFile(filePath);
@@ -28,8 +28,7 @@ Object readJson(String filePath) {
 
 Object readJsonSerializable(String filePath) {
     Object jsonContent = readJson(filePath);
-    //return toSerializable(jsonContent);
-    return jsonContent;
+    return toSerializable(jsonContent);
 }
 
 Map call() {

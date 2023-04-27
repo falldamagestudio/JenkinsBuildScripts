@@ -6,7 +6,7 @@ Object call() {
     String settingsPath = "$workspacePath/JenkinsBuildScripts/${jobName}.json";
     if (fileExists(settingsPath)) {
         echo("Found settings file $settingsPath");
-        return JsonHelpers.readJsonSerializable(settingsPath);
+        return JsonHelpers.readJsonSerializable(this, settingsPath);
     }
 
     return [:];

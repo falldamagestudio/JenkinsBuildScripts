@@ -38,7 +38,7 @@ class AutoMagic {
 
         String runFilePath = "$restartFromPath/run.txt";
         String commandToRun = script.readFile(runFilePath);
-        echo("Running command from: $runFilePath");
+        script.echo("Running command from: $runFilePath");
         if (Alara.isWindows(script)) {
             script.bat(commandToRun);
         }

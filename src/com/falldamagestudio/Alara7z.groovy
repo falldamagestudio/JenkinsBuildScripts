@@ -42,8 +42,19 @@ class Alara7z {
     }
 
     private static void call7z(Object script, String[] arguments) {
-        String exePath = getExePath(script);
-        Alara.runWithArgs(script, exePath,  arguments);
+        // we have to generate command string for 7z ourself because has a special syntax
+        // e.g. -o"{destinationPath}" is a valid argument. But -o {destinationPath} is not.
+        // so we can't just pass arguments to Alara.runWithArgs. If {destinationPath} has spaces in a path
+        // Alara.runWithArgs will try to wrap it with quotes. But 7z will get confused with argument
+        // "-o"{destinationPath}"" and will fail.
+        String cmdString = '';
+        cmdString += getExePath(script);
+
+        for (String argument in arguments) {
+            cmdString += ' ';
+            cmdString += argument;
+        }
+        Alara.run(script, cmdString);
     }
 
 }

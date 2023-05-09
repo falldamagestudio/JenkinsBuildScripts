@@ -13,13 +13,13 @@ import groovy.transform.CompileStatic
 @CompileStatic
 class UnrealCookPlatform {
 
-    // in UE4\Engine\Source\Programs\AutomationTool\Win\WinPlatform.Automation.cs
-    static final String COOK_PLATFORM_WINDOWS = 'WindowsNoEditor';
+    // in UE\Engine\Source\Programs\AutomationTool\Win\WinPlatform.Automation.cs
+    static final String COOK_PLATFORM_WINDOWS = 'Windows';
     static final String COOK_PLATFORM_WINDOWS_SERVER = 'WindowsServer';
     static final String COOK_PLATFORM_WINDOWS_CLIENT = 'WindowsClient';
 
-    // in UE4\Engine\Source\Programs\AutomationTool\Linux\LinuxPlatform.Automation.cs
-    static final String COOK_PLATFORM_LINUX = 'LinuxNoEditor';
+    // in UE\Engine\Source\Programs\AutomationTool\Linux\LinuxPlatform.Automation.cs
+    static final String COOK_PLATFORM_LINUX = 'Linux';
     static final String COOK_PLATFORM_LINUX_SERVER = 'LinuxServer';
     static final String COOK_PLATFORM_LINUX_CLIENT = 'LinuxClient';
 

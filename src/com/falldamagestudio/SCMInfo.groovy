@@ -60,7 +60,7 @@ class SCMInfo implements Serializable {
     // Otherwise, return null
 
     def getTriggeringPerson(build) {
-        def cause = cause(hudson.model.Cause.UserIdCause)
+        def cause = build.cause(hudson.model.Cause.UserIdCause)
         if (cause) {
             return cause.userId()
         } else {

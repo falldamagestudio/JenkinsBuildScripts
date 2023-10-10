@@ -56,15 +56,36 @@ class SCMInfo implements Serializable {
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
+    // If the specified build was triggered by a person, return the ID (e-mail address) of that person
+    // Otherwise, return null
+
+    def getTriggeringPerson(build) {
+        def cause = build.getBuildCauses('hudson.model.Cause$UserIdCause')
+        if (cause && cause.size() > 0) {
+            def triggeringUser = cause.getJSONObject(0)
+            def triggeringUserId = triggeringUser.getString('userId')
+            return triggeringUserId
+        } else {
+            return null
+        }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
 
     // Gather up e-mail addresses of all people who have committed anything during the last series of non-successful builds (including current build)
     // If the last build was successful, this will return an empty set
     def getPeopleToInformAboutNonSuccessfulBuild() {
+        def peopleToInform = new HashSet<String>()
         if (script.currentBuild) {
-            return getAllCommittersSinceLastSuccessfulBuild(script.currentBuild)
+            peopleToInform = getAllCommittersSinceLastSuccessfulBuild(script.currentBuild)
         }
-        else
-            return new HashSet<String>()
+
+        def triggeringPerson = getTriggeringPerson(script.currentBuild)
+        if (triggeringPerson) {
+            peopleToInform.add(triggeringPerson)
+        }
+
+        return peopleToInform
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -72,10 +93,16 @@ class SCMInfo implements Serializable {
     // Gather up e-mail addresses of all people who have committed anything during the last series of non-successful builds (excluding current build)
     // If the second-to-last build was successful, this will return an empty set
     def getPeopleToInformAboutSuccessfulBuild() {
+        def peopleToInform = new HashSet<String>()
         if (script.currentBuild) {
-            return getAllCommittersSinceLastSuccessfulBuild(script.currentBuild.getPreviousBuild())
+            peopleToInform = getAllCommittersSinceLastSuccessfulBuild(script.currentBuild.getPreviousBuild())
         }
-        else
-            return new HashSet<String>()
+
+        def triggeringPerson = getTriggeringPerson(script.currentBuild)
+        if (triggeringPerson) {
+            peopleToInform.add(triggeringPerson)
+        }
+
+        return peopleToInform
     }
 }
